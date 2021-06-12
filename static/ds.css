@@ -1,0 +1,179 @@
+.logo1{
+  transition: 700ms ease;
+  position: relative;
+  top:25px;
+  left:40px;
+  background: url("images/logo1.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+
+}
+
+.logo1:hover{
+  transition: all 700ms ease;
+  background: url("images/logo2.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+
+.container-fluid{
+  position: relative;
+  top: 60px;
+
+}
+.row{
+  height: 400px;
+
+}
+.col{
+  /* text-align: right; */
+  filter:grayscale();
+  transition: all 700ms ease;
+}
+.col:hover{
+  cursor: pointer;
+  filter:none;
+}
+
+
+
+#hint{
+  position: relative;
+  top:20px;
+  left:15px;
+  color: white;
+  width: 100%;
+  text-shadow: 1px 1px 4px black;
+  opacity: 0;
+  transition: all 700ms ease;
+}
+
+.col:hover #hint{
+  opacity: 1;
+
+}
+
+.col:hover #cellTitle{
+  text-shadow: 1px 1px 4px black;
+
+}
+
+#cellTitle{
+  float: right;
+  margin-right: 15px;
+  text-decoration: none;
+  position: relative;
+  top: 320px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 30px;
+  color: white;
+  transition: all 700ms ease;
+}
+
+#divTitle{
+  position: relative;
+  top:30px;
+  float: left;
+  margin-left: 35px;
+  font-family: 'Roboto Slab', serif;
+  font-size: 30px;
+  color: black;
+}
+
+#cell1{
+  background: url("images/pgn.jpg") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+#cell2{
+  background: url("images/milano.jpg") 100% 100% no-repeat;
+  background-size: cover;
+
+}
+
+#cell3{
+  background: url("images/youtube.jpg") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+#cell4{
+  background: url("images/fake.jpg") 100% 100% no-repeat;
+  background-size: cover;
+
+}
+
+#cell5{
+  background: url("images/sales.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+#cell6{
+  background: url("images/movies.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+#cell7{
+  background: url("images/instaseer.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+#cell8{
+  background: url("images/airfoils.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+#cell9{
+  background: url("images/portrait.png") 100% 100% no-repeat;
+  background-size: cover;
+}
+
+/* footer{
+  position: fixed;
+  font-size: 12px;
+  bottom: 180px;
+  left: -150px;
+  color: grey;
+  transform: rotate(-90deg);
+} */
+
+
+#row0{
+  height:150px;
+  margin-bottom: 80px;
+}
+
+#projectLogo{
+  margin-left: 35px;
+  background: grey;
+  float: right;
+  width: 150px;
+  height: 150px;
+  /* background-image: url("https://github.com/inotin/pgnstats/raw/master/images/logo.png"); */
+
+
+}
+
+#projectDecription{
+  overflow: hidden;
+  height: 150px;
+  background: green;
+}
+
+#row1{
+  margin-top: 30px;
+  height:150px;
+}
+
+.input{
+  margin-top:15px;
+  margin-left: 35px;
+}
+
+#row2{
+  height:420px;
+}
+
+#row3{
+  height:800px;
+}

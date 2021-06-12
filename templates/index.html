@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <title>My DS projects</title>
+    {%load static%}
+    <link rel="stylesheet" href="{%static 'ds.css'%}">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{%static 'favicon.png'%}" type="image/x-icon">
+  </head>
+  <body>
+    <div class='logo1' style="height:100px;width:600px"></div>
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col" id='cell1' onclick="location.href='{%url 'cell1'%}'">
+          <a href="{%url 'cell1'%}" id="cellTitle"> PGN Stats</a>
+          <p id="hint">Find out the most popular openings
+          of the best chess players</p>
+        </div>
+
+        <div class="col" id='cell2' onclick="location.href='{%url 'cell2'%}'">
+          <a href="{%url 'cell2'%}" id="cellTitle"> MiLuogo</a>
+          <p id="hint">Find the best place to live in Milan based on your priorities</p>
+        </div>
+
+        <div class="col" id='cell3' onclick="location.href='{%url 'cell3'%}'">
+          <a href="{%url 'home'%}" id="cellTitle"> Reviewlizer</a>
+          <p id="hint">Save your time and get assessment of the product based on YouTube reviews</p>
+        </div>
+
+      </div>
+      </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col" id='cell4' onclick="location.href='{%url 'cell4'%}'">
+          <a href="{%url 'cell4'%}" id="cellTitle">Fake News</a>
+          <p id="hint">Fake news research project</p>
+        </div>
+
+        <div class="col" id='cell5' onclick="location.href='{%url 'cell5'%}'">
+          <a href="{%url 'cell5'%}" id="cellTitle">Sales</a>
+          <p id="hint">Sales prediction research project</p>
+        </div>
+
+        <div class="col" id='cell6' onclick="location.href='{%url 'cell6'%}'">
+          <a href="{%url 'cell6'%}"id="cellTitle">Movie Posters</a>
+          <p id="hint">Reveal the coloutful secrets of movie posters</p>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col" id='cell7' onclick="location.href='{%url 'cell7'%}'">
+          <a href="{%url 'cell7'%}" id="cellTitle">InstaSeer</a>
+          <p id="hint">Trying to predict likes for your future post</p>
+        </div>
+
+        <div class="col" id='cell8' onclick="location.href='{%url 'cell8'%}'">
+          <a href="{%url 'cell8'%}" id="cellTitle">Airfoils</a>
+          <p id="hint">Prediction of aerodynamic properties of airfoils</p>
+        </div>
+
+        <div class="col" id='cell9' onclick="location.href='{%url 'cell9'%}'">
+          <a href="{%url 'cell9'%}"id="cellTitle">About me</a>
+          <p id="hint">Personal informaton & CV</p>
+        </div>
+      </div>
+
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  </body>
+  <br>
+  <footer style="color:grey; position: relative; bottom:-50px;left:10px;">
+    Made using Django, Bootstrap, JavaScript and AWS by Ilia Notin
+  </footer>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ilia Notin Projects | instaSeer </title>
+    {%load static%}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="{%static 'favicon.png'%}"/>
+    <script>
+      function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+      }
+    </script>
+  </head>
+
+  <body>
+    <a href="{%url 'home'%}"><button type="button" style="margin-top:20px; margin-left:12px; color:grey;" class="btn btn-light">← Back home</button></a>
+    <h1 style="margin-top:30px; margin-left: 10px;">instaSeer<a href="https://github.com/inotin/instaSeer"><img style="height:28px" src="{%static 'GitHub-Mark-120px-plus.png'%}" alt=""></a></h1>
+    <div class="container" style="max-width: 100%;">
+      <div class="row" >
+        <div class="col-lg-4">
+          <h5>Overview</h5>
+
+          <p>I was always interested in behavioral psychology. It is curious what makes people make certain decisions,
+            why they behave one way or another, sometimes against the logic. Of course, it is hard to answer these questions in all situations.
+            Still, one of them, which seems comparatively simple, is determining why people like what they see. But is it possible to build a model
+            that could predict if an image will be pleasant for most people?
+            In a nutshell I tried to build a model capable of prediction relative number of likes based on post image and caption. Or at least rank them.<br>
+            Relative number of likes is number of likes normalized (divided) by number of the followers. That what the tool on the right does.</p>
+        </div>
+        <div class="col-lg-8">
+          <form class="input" action="{%url 'cell7'%}">
+          <div class="form-group" style = "width:100%;">
+            <label for="textArea"><b>Image URL(s)</b></label>
+            <label for="textArea">Type in image URL(s), each on a new line</label>
+            <textarea class="form-control" id="textArea" rows="3" name="ImageUrls" onload='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{given_ImageUrls}}</textarea>
+          </div>
+          <br>
+          <div class="form-group" style = "width:100%;">
+            <label for="textArea"><b>Caption text(s)</b></label>
+            <label for="textArea">Type in caption texts, each on a new line</label>
+            <textarea class="form-control" id="textArea" rows="3" name="CaptionTexts" onload='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{given_CaptionTexts}}</textarea>
+          </div>
+          <br>
+          <input type="submit" value="Compare posts">
+        </form>
+        <br>
+        </div>
+      </div>
+
+
+      <div class="row" style="margin-top:40px">
+        <div class="col-lg-4">
+          <h5>Results</h5>
+          <p>Here's a table with extracted parameters and scores is rendered</p>
+        </div>
+        <div class="col-lg-8">
+
+          <iframe class="table" src="{%static 'instaSeer/instaSeerDf2.html'%}" title="table" frameborder="0" scrolling="no" onload="resizeIframe(this)" style="width:100%"></iframe>
+
+        </div>
+      </div>
+
+
+      <div class="row" >
+        <div class="col-lg-4">
+          <h3 style="margin-top:70px">What's under the hood?</h3>
+          <h4>Datset description</h4>
+          To predict how "liked" postt would be, firstly I scraped a dataset from Instagram.
+          The dataset consists of about 4000 scraped Instagram posts (metadata) from 18 accounts.
+          <br>
+          <br>
+          <b>How were chosen the accounts?</b>
+          <li>Tried to avoid personal accounts because they contain mainly selfies</li>
+          <li>Tried to avoid accounts having many posts with textual information</li>
+          <li>Tried to avoid accounts in which ”likes” could be based  on caption text</li>
+          <br>
+          <b>Problems:</b><br>
+          Instagram prevents scraping therefore the process is painful and time-consuming.
+          Solution:
+          <li>random time.sleep() during scraping</li>
+          <li>taking breaks</li>
+          <li>changing session IDs</li>
+          <br>
+          </div>
+
+        <div class="col-lg-8">
+          <br>
+          <br>
+          <br>
+          <br>
+            <img style="width: 800px; margin-left:auto; margin-right: auto;display: block;" src="{%static 'instaSeer/images/diagram.png'%}" alt="">
+        </div>
+      </div>
+
+
+      <div class="row" >
+        <div class="col-lg-4">
+          <h4>Correlation study</h4>
+          As for the first step I wasintersted to see which features are correlated positively and negtively with the target variable.
+          On the right you can see corresponding bar charts.
+          <br>
+          Correlation values are pretty low, but it’s interesting that narrower images with animals with no bright colors and people should gain more likes. <br>Here it’s interesting to compare samples with opposite characteristics to see how significant the difference between mean log-weighted likes values is.
+For that purpose, I took 2 samples with 300 records in each. The samples were taken from dataframe sorted by top-10 columns from positive and negative correlations. Their boxplots are provided below.
+          <br>
+          </div>
+
+        <div class="col-lg-8">
+            <iframe style="width: 100%; height: 400px;" src="{%static 'instaSeer/images/instaSeer_correlations.html'%}" title="" ></iframe>
+
+        </div>
+      </div>
+
+
+      <div class="row" >
+        <div class="col-lg-4">
+          <br>
+          <br>
+Initially I wanted to conduct one-way ANOVA but the samples didn’t meet its requirements: they had different variance, not normally distributed residuals and values.
+Therefore, I conducted the Kruskal-Wallis H-test which requires only independence of samples (the equality of distribution shapes can be ignored if null hypothesis is rejected <a href="http://rcompanion.org/handbook/F_04.html">[1]</a>).
+The result of Kruskal_Wallis H-test showed that these two groups are stochastically different (H>Hc, p<<0.05): Hence, the elimination of negatively correlated features can lead to increase of number of likes.
+          <br>
+          </div>
+
+        <div class="col-lg-8">
+            <iframe style="width: 100%; height: 400px;" src="{%static 'instaSeer/images/box.html'%}" title="" ></iframe>
+        </div>
+      </div>
+
+
+
+      <div class="row" >
+        <div class="col-lg-4">
+          <h4>Model selection</h4>
+          I tried 2 approaches to solve this task. They are regression and classification. <br>
+          For regression I tried several models, such as Random forest, XGBoost, K-neighbors, Decision Tree and Voting Regressors with previously mentioned models as voters.
+          <br>Regarding classification, i binned likes into 5 quantiles and tried to predict quantile using Random forest Classifier, XGBoost Classifier, K-neighbors Classifier and
+          Voting Classifier which combined forementioned methods with soft voting.
+          <br>The metrics are provided in tables. Based on them I decided to use XGBoost regression model. is used which was trained on a dataset scraped by me from Instagram.
+          </div>
+
+        <div class="col-lg-8">
+          <br>
+          <br>
+          <h5>Regression models</h5>
+          <!-- <iframe style="width:100%; height:400px" src="{%static 'instaSeer/reviewlizerPvalues.html'%}" title="plots" ></iframe> -->
+          <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Model name</th>
+                <th scope="col">Model selection method</th>
+                <th scope="col">RMSE</th>
+                <th scope="col">R2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table">
+                <th scope="row">Random Forest Regressor</th>
+                <td>RandomizedSearchCV</td>
+                <td>0.699</td>
+                <td>0.253</td>
+              </tr>
+              <tr class="table-success">
+                <th scope="row">XGBoost Regressor</th>
+                <td>RandomizedSearchCV</td>
+                <td>0.696</td>
+                <td>0.261</td>
+              </tr>
+              <tr>
+                <th scope="row">K-neighbors Regressor</th>
+                <td>RandomizedSearchCV</td>
+                <td>0.811</td>
+                <td>-0.004</td>
+              </tr>
+              <tr>
+                <th scope="row">Decision Tree Regressor</th>
+                <td>RandomizedSearchCV</td>
+                <td>0.769</td>
+                <td>0.097</td>
+              </tr>
+              <tr>
+                <th scope="row">Voting Regressor</th>
+                <td>Deafult settings</td>
+                <td>0.769</td>
+                <td>0.247</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <h5>Classification models</h5>
+          <!-- <iframe style="width:100%; height:400px" src="{%static 'instaSeer/reviewlizerPvalues.html'%}" title="plots" ></iframe> -->
+          <table class="table table-hover table-sm">
+            <thead>
+              <tr>
+                <th scope="col">Model name</th>
+                <th scope="col">Model selection method</th>
+                <th scope="col">Accuracy</th>
+                <th scope="col">Weighted avg F1-score</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Random Forest Classifier</th>
+                <td>RandomizedSearchCV</td>
+                <td>0.50</td>
+                <td>0.51</td>
+              </tr>
+              <tr>
+                <th scope="row">XGBoost Classifier</th>
+                <td>RandomizedSearchCV</td>
+                <td>0.52</td>
+                <td>0.52</td>
+              </tr>
+              <tr>
+                <th scope="row">K-neighbors Classifier</th>
+                <td>GridSearchCV</td>
+                <td>0.35</td>
+                <td>0.36</td>
+              </tr>
+              <tr>
+                <th scope="row">Voting Classifier</th>
+                <td>Default settings</td>
+                <td>0.49</td>
+                <td>0.49</td>
+              </tr>
+              <tr>
+                <th scope="row">CNN</th>
+                <td>Grid Search</td>
+                <td>0.24</td>
+                <td>0.31</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+      </div>
+
+
+  <div class="row" >
+    <div class="col-lg-4">
+      <h4>Selected model</h4>
+      As I mentioned above the best model is XGBoost regressor. Corresponding graphs obtained on a test set are provided to the right.
+      <br>
+      Its hyperparameters are:
+      <br>
+      'min_child_weight': 3, <br>
+      'max_depth': 8, <br>
+     'learning_rate': 0.1,<br>
+     'gamma': 0.1,<br>
+     'colsample_bytree': 0.4 <br>
+      </div>
+
+    <div class="col-lg-8">
+        <iframe style="width: 100%; height: 400px;" src="{%static 'instaSeer/images/XGBoost Regressor Results.html'%}" title="" ></iframe>
+    </div>
+  </div>
+
+  <div class="row" >
+    <div class="col-lg-4">
+      <h4>Conclusion</h4>
+      <p>The models created within this project did not show outstanding results. I suppose that number of records should be increased which I will implement later. However, Random Forest regressor can be used for comparative choice of the posts.
+Conducted Kruskal-Wallis H-test showed significant differences between Instagram posts with dominating positively and negatively correlating features which allows to determine factors affecting success of a post.
+As for the future work, I plan to increase number of records, fine tune neural networks and apply clusterization to generate new features. I would also pay some attention to tuning of models which demonstrate overfitting.
+</p>
+    <div class="col-lg-8">
+    </div>
+  </div>
+
+
+
+      <!-- <div class="row" >
+        <div class="col-lg-4">
+          <h5 style="margin-top:70px">Plots</h5>
+          Histograms, barplots
+        </div>
+        <div class="col-lg-8">
+          <iframe style="width:100%; height:{{plotHeight1}}" src="{%static 'reviewlizer/reviewlizerHistograms.html'%}" title="plots" ></iframe>
+          <iframe style="width: 100%; height: {{plotHeight2}}" src="{%static 'reviewlizer/reviewlizerResult.html'%}" title="plots" ></iframe>
+        </div>
+      </div> -->
+
+
+      </div>
+
+
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  </body>
+  <footer style="color:grey; position: relative; bottom:10px;left:10px;">
+    Made using Django, Bootstrap, JavaScript and AWS by Ilia Notin
+  </footer>
+</html>

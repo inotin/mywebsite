@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ilia Notin Projects | Reviewlizer</title>
+    {%load static%}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="{%static 'favicon.png'%}"/>
+    <script>
+      function resizeIframe(obj) {
+        obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
+      }
+    </script>
+  </head>
+
+  <body>
+    <a href="{%url 'home'%}"><button type="button" style="margin-top:20px; margin-left:12px; color:grey;" class="btn btn-light">← Back home</button></a>
+    <h1 style="margin-top:30px; margin-left: 10px;">Reviewlizer<a href="https://github.com/inotin/reviewAnalyzer"><img style="height:28px" src="{%static 'GitHub-Mark-120px-plus.png'%}" alt=""></a></h1>
+    <div class="container" style="max-width: 100%;">
+      <div class="row" >
+        <div class="col-lg-4">
+          <h5>Overview</h5>
+
+          <p>Once upon a time I realized that if you want to get objective information about some product, you have to spend a vast amount of time reading and watching reviews to distill valuable facts.
+            Each youtube product review lasts about <b>15 minutes</b>, therefore you have to spend <b>hours</b> if you'd like to compare several products. <br>
+            The tool that I am trying to implement here provides quantative assessment for features of products. <br>
+            This app takes 15 videos from YouTube based on product names and provides <b>semantic analysis</b> of the captions based on the given keywords. <br>
+            After that it returns <b>scores for each of the features</b> (key words) and <b>a total score</b> which helps to make the right choice.</p>
+            The process takes about <b>1-2 minutes</b>.
+        </div>
+        <div class="col-lg-8">
+          <form class="input" action="{%url 'cell3'%}">
+          <div class="form-group" style = "width:500px;">
+            <label for="textArea"><b>Products.</b> Type in product names, each on a new line</label>
+            <textarea class="form-control" id="textArea" rows="3" name="productNames" onload='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{given_productNames}}</textarea>
+          </div>
+          <br>
+          <div class="form-group" style = "width:500px;">
+            <label for="textArea"><b>What's important?</b> Type in key words, each on a new line</label>
+            <textarea class="form-control" id="textArea" rows="3" name="productKeyWords" onload='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{given_productKeyWords}}</textarea>
+          </div>
+          <br>
+          <input type="submit" value="Reviewlize!">
+        </form>
+        <br>
+        </div>
+      </div>
+
+
+      <div class="row" style="margin-top:40px">
+        <div class="col-lg-4">
+          <h5>Results</h5>
+          <p>Here's a table with scores is rendered</p>
+        </div>
+        <div class="col-lg-8">
+
+          <iframe src="{%static 'reviewlizer/reviewlizerDf.html'%}" title="table" frameborder="0" scrolling="no" onload="resizeIframe(this)" style="width:100%"></iframe>
+
+        </div>
+      </div>
+
+
+      <div class="row" >
+        <div class="col-lg-4">
+          <h5 style="margin-top:70px">P-values</h5>
+          In this section the table with p-values for pairwise t-test are given. If p-value is less than threshold (e.g., 0.1) it means that we can reject the null hypothesis that says that mean score values are similar.
+          I.e. in this case there's a significant difference in score for a given feature (keyword).
+          2-sample t-test was conducted for samples with different variances.
+        </div>
+        <div class="col-lg-8">
+          <br>
+          <br>
+          <iframe style="width:100%; height:400px" src="{%static 'reviewlizer/reviewlizerPvalues.html'%}" title="plots" ></iframe>
+          <iframe style="width:100%; height:1000px" src="{%static 'reviewlizer/reviewlizerBoxPlots.html'%}" title="plots" ></iframe>
+        </div>
+      </div>
+
+
+      <div class="row" >
+        <div class="col-lg-4">
+          <h5 style="margin-top:70px">Plots</h5>
+          Histograms, barplots
+        </div>
+        <div class="col-lg-8">
+          <iframe style="width:100%; height:{{plotHeight1}}" src="{%static 'reviewlizer/reviewlizerHistograms.html'%}" title="plots" ></iframe>
+          <iframe style="width: 100%; height: {{plotHeight2}}" src="{%static 'reviewlizer/reviewlizerResult.html'%}" title="plots" ></iframe>
+        </div>
+      </div>
+
+
+      </div>
+
+
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  </body>
+  <footer style="color:grey; position: relative; bottom:10px;left:10px;">
+    Made using Django, Bootstrap, JavaScript and AWS by Ilia Notin
+  </footer>
+</html>

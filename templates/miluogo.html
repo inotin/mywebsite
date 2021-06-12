@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ilia Notin Projects | MiLuogo</title>
+    {%load static%}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="{%static 'favicon.png'%}"/>
+
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+    $( function() {
+      $( "#slider-range" ).slider({
+        range: true,
+        min: 0,
+        max: 10000,
+        values: [ 800, 2000 ],
+        slide: function( event, ui ) {
+          $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+        }
+      });
+      $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+    } );
+    </script>
+  </head>
+
+  <body>
+    <a href="{%url 'home'%}"><button type="button" style="margin-top:20px; margin-left:12px; color:grey;" class="btn btn-light">← Back home</button></a>
+    <h1 style="margin-top:30px; margin-left: 10px;">MiLuogo<a href="https://github.com/inotin/reviewAnalyzer"><img style="height:28px" src="{%static 'GitHub-Mark-120px-plus.png'%}" alt=""></a></h1>
+    <div class="container" style="max-width: 100%;">
+      <div class="row" >
+        <div class="col-lg-4">
+          <h4>Overview</h4>
+
+          <p>Moving to another country is a real challenge. And one of the challenges is choosing a right place to live. As for me, some time ago I was moving to Milan, Italy. <br>
+            That city is a vibrant multicultural megapolis with all its pros and cons. Therefore I have to choose an optimal place for living (an apartment to rent). I have identified several parameters for choosing one:
+proximity to employers: I will look for existing offers, find locations of the companies and calculate median location. Then I will assess the distance between each apartment and the median location.
+remoteness from disadvantaged areas. I will find locations of disadvantaged areas (based on reviews in the internet) and then calculate distance to the closest disadvantaged are for each apartment.
+vegetation concentration. I will calculate the amount of green areas per km2 for each of 9 zones (districts) in Milan and then define in what zones apartments are located.
+air quality. I will use information on air pollution for the last year and define mean scaled concentration of harmful substances and dust particles which monitoring stations provide. Then I will build a regression model that would predict that value based on location in the city.
+price (and location): I will take into account apartments of certain range (€1000 to €2000) which can be modified in the notebook. I will find existing offers and define their location. Then for each of the apartments I will assess the parameters above
+Based on those parameters I calculate the total score based on their weighted sum. Weight of each parameter can be based on priorities of a user (I used all equal).
+Then each apartment is assigned this score which helps to choose the best one. </p>
+        </div>
+        <div class="col-lg-8">
+          <form class="input" action="{%url 'cell2'%}">
+          <div class="form-group" style = "width:500px;">
+            <label for="textArea"><b>Job Name.</b> Type in a job name, which interests you.</label>
+            <textarea class="form-control" id="textArea" rows="3" name="jobName" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{given_jobName}}</textarea>
+          </div>
+          <p>
+            <label for="amount">Price range:</label>
+            <input type="text" id="amount" readonly style="border:0; color:#f6931f #2D70F4; font-weight:bold;">
+          </p>
+
+          <div id="slider-range"></div>
+          <br>
+          <label for="customRange3" class="form-label">Air quality importance</label>
+          <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" name='air_importance' value='{{given_air_importance}}'>
+          <br>
+          <label for="customRange3" class="form-label">Vegetation concentration importance</label>
+          <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" name='green_importance' value='{{given_green_importance}}'>
+          <br>
+          <label for="customRange3" class="form-label">Safety importance {{danger_importance}}</label>
+          <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" name='danger_importance' value='{{given_danger_importance}}'>
+          <br>
+          <label for="customRange3" class="form-label">Price importance</label>
+          <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" name='price_importance' value='{{given_price_importance}}'>
+          <br>
+          <label for="customRange3" class="form-label">Workplace proximity importance</label>
+          <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" name='work_importance' value='{{given_work_importance}}'>
+          <br>
+          <br>
+          <input type="submit" value="Find a great place!">
+        </form>
+        </div>
+      </div>
+
+
+      <div class="row" style="margin-top:40px">
+        <div class="col-lg-4">
+          <h4>Results</h4>
+          <p>Here's a map with results for <b>{{given_jobName}}</b> in Milano</p>
+          <h5>Layers description</h5>
+          <p> <b>Vegetation concentration:</b> Amount of green per square meter in each zone of Milan. <a href="https://dati.comune.milano.it/dataset/ds339-territorioambiente-aree-verdi-zona-superficie-2014">[Source 1]</a> <a href="https://en.wikipedia.org/wiki/Municipalities_of_Milan ">[Source 2]</a> </p>
+          <p> <b>Companies:</b> Headquarters of the companies which offer the job and corresponding links to job description. Source: <a href="https://it.indeed.com">[Source]</a> </p>
+          <p> <b>Optimal locations based on companies:</b> Mean and median points for a found set of companies. The <b>closer</b> an accommodation to median point, the <b>higher</b> score it gets </p>
+          <p> <b>Districts:</b> Borders of administrative zones. <a href="#"></a> </p>
+          <p> <b>Environmental monitoring stations:</b> Locations of monitoring stations.</p>
+          <p> <b>Air Contamination Heatmap:</b> Predicted scaled concentrations based on values obtained from monitoring stations. <b>Linear regression</b> with  <b>3-degree polynomial features</b> is used.</p>
+          <p> <b>Accommodations for rent (apartments):</b> Apartments found at <a href="https://immobiliare.it">immobiliare.it</a> for a given price range. Each item is scored according to given importances.</p>
+          <p> <b>Dangerous Zones:</b> Dangerous zones which are better to avoid according to several sources: <a href="https://www.quora.com/What-are-the-most-dangerous-areas-of-Milan">[1]</a>, <a href="https://www.tripadvisor.com/ShowTopic-g187849-i143-k1372098-Bad_areas_to_avoid-Milan_Lombardy.html">[2]</a></p>
+          <p> <b>Predicted Total Score:</b> A score predicted by <b>Random Forest Regressor</b> based on scores obtained for Accomodations. <b>Blue</b> is <b>better</b>, <b>red</b> is <b>worse</b>.</p>
+
+
+        </div>
+        <div class="col-lg-8">
+
+          <iframe src="{%static 'updatedMap/map.html'%}" title="map" style="width: 100%; height: 800px;"></iframe>
+
+        </div>
+      </div>
+
+
+
+
+      </div>
+
+
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  </body>
+  <footer style="color:grey; position: relative; bottom:10px;left:10px;">
+    Made using Django, Bootstrap, JavaScript and AWS by Ilia Notin
+  </footer>
+</html>
