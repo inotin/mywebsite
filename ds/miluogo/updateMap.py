@@ -219,7 +219,7 @@ def updateMap():
     #     input()
         if "Milano" in set(loc.address.split(" ")) or "MI," in set(loc.address.split(" ")):
             #Adding marker
-            link = "<a href=" + loc["link"] + ">Link</a>"
+            link = f'<a href="{loc["link"]}" target="_blank">Link</a>'
             folium.Marker([loc["lt"], loc["lg"]],
                         popup=f'<b>{loc["companyName"]}</b><br> {loc["jobName"]}<br> {link}<br><i>{loc.address}</i>',
                         tooltip=tooltip).add_to(feature_group1)

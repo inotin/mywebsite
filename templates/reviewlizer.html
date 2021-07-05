@@ -12,11 +12,32 @@
       }
     </script>
   </head>
+  <script type="text/javascript">
+     function toggle_visibility(id) {
+         var e = document.getElementById(id);
+         if(e.style.visibility == 'hidden')
+            e.style.visibility = 'visible';
+         else
+            e.style.visibility = 'hidden';
+     }
+  </script>
+
+
 
   <body>
     <a href="{%url 'home'%}"><button type="button" style="margin-top:20px; margin-left:12px; color:grey;" class="btn btn-light">← Back home</button></a>
     <h1 style="margin-top:30px; margin-left: 10px;">Reviewlizer<a href="https://github.com/inotin/reviewAnalyzer"><img style="height:28px" src="{%static 'GitHub-Mark-120px-plus.png'%}" alt=""></a></h1>
     <div class="container" style="max-width: 100%;">
+
+      <div class="row" style="margin-bottom:30px;">
+        <div class="col-lg">
+            <span class="badge rounded-pill bg-primary">NLP</span>
+            <span class="badge rounded-pill bg-primary">Statistical analysis</span>
+            <span class="badge rounded-pill bg-primary">Web scraping</span>
+            <span class="badge rounded-pill bg-primary">APIs</span>
+        </div>
+      </div>
+
       <div class="row" >
         <div class="col-lg-4">
           <h5>Overview</h5>
@@ -40,7 +61,12 @@
             <textarea class="form-control" id="textArea" rows="3" name="productKeyWords" onload='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{given_productKeyWords}}</textarea>
           </div>
           <br>
-          <input type="submit" value="Reviewlize!">
+          <input type="submit" value="Reviewlize!" onclick="toggle_visibility('spinn');">
+          <br>
+          <br>
+          <div id="spinn" class="spinner-border" role="status" style="visibility:hidden;">
+            <span class="sr-only"></span>
+          </div>
         </form>
         <br>
         </div>

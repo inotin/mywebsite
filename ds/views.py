@@ -5,7 +5,7 @@ def home(request):
     return render(request, 'index.html')
 
 def aboutit(request):
-    return render(request, 'aboutit.html')
+    return render(request, 'aboutit2.html')
 
 
 def cell1(request):
@@ -56,6 +56,8 @@ def cell2(request):
 lastProductNames = 'iPhone 11 Pro\niPhone 12 Pro\nGoogle Pixel 5\nGoogle Pixel 4A'
 lastProductKeyWords = 'screen\ncamera\nstabilization\nbattery\nmaterials\nprice'
 
+
+
 def cell3(request):
     global lastProductNames
     global lastProductKeyWords
@@ -69,6 +71,9 @@ def cell3(request):
     plotHeight1 = str(200*len(input_productNames.split('\n')))+'px'
     plotHeight2 = str(200*len(input_productKeyWords.split('\n')))+'px'
     return render(request, 'reviewlizer.html', {'given_productNames':input_productNames,'given_productKeyWords':input_productKeyWords,'plotHeight1':plotHeight1,'plotHeight2':plotHeight2})
+
+
+
 
 lastImageUrls = 'https://s1.1zoom.ru/big3/11/Netherlands_Houses_478971.jpg\nhttps://timelapsenetwork.com/wp-content/uploads/TL-foto-Milano-City-5.jpg'
 lastCaptionTexts = 'This is a beautiful picture of Nehtherlands #amsterdam #travel @user1 @user2\nThis is Milano #italy @user3'

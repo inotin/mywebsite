@@ -27,12 +27,34 @@
         " - $" + $( "#slider-range" ).slider( "values", 1 ) );
     } );
     </script>
+
+
+    <script type="text/javascript">
+       function toggle_visibility(id) {
+           var e = document.getElementById(id);
+           if(e.style.visibility == 'hidden')
+              e.style.visibility = 'visible';
+           else
+              e.style.visibility = 'hidden';
+       }
+    </script>
+
   </head>
 
   <body>
+
+
     <a href="{%url 'home'%}"><button type="button" style="margin-top:20px; margin-left:12px; color:grey;" class="btn btn-light">← Back home</button></a>
-    <h1 style="margin-top:30px; margin-left: 10px;">MiLuogo<a href="https://github.com/inotin/reviewAnalyzer"><img style="height:28px" src="{%static 'GitHub-Mark-120px-plus.png'%}" alt=""></a></h1>
+    <h1 style="margin-top:30px; margin-left: 10px;">MiLuogo <a href="https://github.com/inotin/reviewAnalyzer"><img style="height:28px" src="{%static 'GitHub-Mark-120px-plus.png'%}" alt=""></a></h1>
     <div class="container" style="max-width: 100%;">
+      <div class="row" style="margin-bottom:30px;">
+        <div class="col-lg">
+            <span class="badge rounded-pill bg-primary">Geospatial analysis</span>
+            <span class="badge rounded-pill bg-primary">Web Scarping</span>
+            <span class="badge rounded-pill bg-primary">APIs</span>
+            <span class="badge rounded-pill bg-primary">Neural networks</span>
+        </div>
+      </div>
       <div class="row" >
         <div class="col-lg-4">
           <h4>Overview</h4>
@@ -54,7 +76,7 @@ Then each apartment is assigned this score which helps to choose the best one. <
             <textarea class="form-control" id="textArea" rows="3" name="jobName" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{given_jobName}}</textarea>
           </div>
           <p>
-            <label for="amount">Price range:</label>
+            <label for="amount">Price range <i>(beta)</i>:</label>
             <input type="text" id="amount" readonly style="border:0; color:#f6931f #2D70F4; font-weight:bold;">
           </p>
 
@@ -76,7 +98,12 @@ Then each apartment is assigned this score which helps to choose the best one. <
           <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" name='work_importance' value='{{given_work_importance}}'>
           <br>
           <br>
-          <input type="submit" value="Find a great place!">
+          <input type="submit" value="Find a great place!" onclick="toggle_visibility('spinn');">
+          <br>
+          <br>
+          <div id="spinn" class="spinner-border" role="status" style="visibility:hidden;">
+            <span class="sr-only"></span>
+          </div>
         </form>
         </div>
       </div>

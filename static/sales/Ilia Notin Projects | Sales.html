@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Ilia Notin Projects | Sales</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="icon" type="image/png" href="/static/favicon.png"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap4.min.css">
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js">
+    </script>
+    <script src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap4.min.js">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js">
+    </script>
+
+
+    <script>
+    $(document).ready(function() {
+    $('#sortTable').DataTable();
+} );
+  </script>
+  </head>
+
+
+
+  <body>
+    <a href="/"><button type="button" style="margin-top:20px; margin-left:12px; color:grey;" class="btn btn-light">← Back home</button></a>
+    <h1 style="margin-top:30px; margin-left: 15px;">Sales<a href="https://github.com/inotin/moviePosters"><img style="height:28px" src="/static/GitHub-Mark-120px-plus.png" alt=""></a></h1>
+
+
+
+    <div class="container" style="max-width: 100%;">
+
+      <div class="row" style="margin-bottom:30px;">
+        <div class="col-lg">
+            <span class="badge rounded-pill bg-primary">Time Series analysis</span>
+            <span class="badge rounded-pill bg-primary">Regression</span>
+            <span class="badge rounded-pill bg-primary">Neural networks</span>
+            <span class="badge rounded-pill bg-primary">Recommender systems</span>
+        </div>
+      </div>
+
+      <div class="row" >
+        <div class="col-lg-4">
+          <h5>Overview</h5>
+
+          <p>This project is one of mine real-world ones and is based on a sales data of a B2B company. The primary goal was to predict monthly sales for the following year.
+            The secondary one was to find similar companies and build a recommender system.
+          <h6>Dataset info</h6>
+          <p>The initial dataset was in form of excel table and contained <b>308243</b> records of individual sales on a daily basis for years from 2018 to 2021 (Q1) <br>
+            Each record had information on: date, product, quantity, cost, company, company tax number</p>
+        </div>
+        <div class="col-lg-8">
+          <iframe style="width: 100%; height: 400px;" src="/static/sales/monthlySales.html" title="monthlySales" ></iframe>
+
+        </div>
+      </div>
+
+
+      <div class="row" style="margin-top:40px">
+        <div class="col-lg-4">
+          <h5>Exploratory Data Analysis</h5>
+          <h6 style="margin-top:40px">Daily sales</h6>
+          <p>It can be noticed that there are higher peak daily sales with time. My goal is to predict monthly sales.
+            As a rule of thumb it's necessary to work with twice more frequent periods than considered for prediction.
+            I'll try to consider the sales on weekly basis as it seems more logical and easier for perception.</p>
+        </div>
+        <div class="col-lg-8">
+
+          <!-- <iframe style="width: 100%; height: 400px;" src="/static/sales/dailySales.html" title="dailySales" ></iframe> -->
+          <img style="width: 100%; margin-top: 45px;" src="/static/sales/dailySales.png" alt="img1">
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:40px">
+        <div class="col-lg-4">
+          <h6 style="margin-top:40px">Weekly sales</h6>
+          <p>Visual check of weekly data shows that the data is stationary. Though it seems that there's a slightly visible trend.</p>
+          <p>Let's decompose this data into trend, seasonal and residual components.</p>
+          <p>Despite there's an increasing trend, Dickey-Fuller test showed that the process can be considered stationary (-5.463622, p-value=0.000002).
+          That means tha we can proceed to data preparation and time series modelling. But before that let's take a brief look at montly and yearly data and corresponding boxplots.</p>
+
+        </div>
+        <div class="col-lg-8">
+
+          <iframe style="width: 100%; height: 400px;" src="/static/sales/weeklySales.html" title="weeklySales" ></iframe>
+
+        </div>
+      </div>
+
+      <!-- <div class="row" style="margin-top:40px">
+        <div class="col-lg-4">
+          <h6 style="margin-top:40px">Monthly sales</h6>
+          <p></p>
+        </div>
+        <div class="col-lg-8">
+
+          <iframe style="width: 100%; height: 400px;" src="/static/sales/monthlySales.html" title="monthlySales" ></iframe>
+
+        </div>
+      </div> -->
+
+      <div class="row" style="margin-top:40px">
+        <div class="col-lg-4">
+          <h6 style="margin-top:40px">Time series decomposition</h6>
+          <p>In this section the data was decomposed into:<br>
+            <li>seasonal component</li>
+            <li>trend component</li>
+            <li>residual component</li><br>
+          </p>
+        </div>
+        <div class="col-lg-8">
+
+          <iframe style="width: 100%; height: 850px;" src="/static/sales/decomposition.html" title="decomposition" ></iframe>
+          <!-- <img style="width: 100%" src="/static/sales/boxPlots.png" alt="boxplots"> -->
+        </div>
+      </div>
+
+
+      <div class="row" style="margin-top:40px">
+        <div class="col-lg-4">
+          <p>Boxplots were formed which allow to assess the significance of the differences month-to-month (seasonality) and year-to-year (trend)</p>
+          <p>It can be seen that though in 2020 the interquartile range is enormous (thanks to gloabal pandemy) there's a slight positive trend. <br>
+          Seasonality is pretty distinct which is a good sign for predictions.</p>
+        </div>
+        <div class="col-lg-8">
+
+          <!-- <iframe style="width: 100%; height: 850px;" src="/static/sales/decomposition.html" title="decomposition" ></iframe> -->
+          <img style="width: 100%" src="/static/sales/boxPlots.png" alt="boxplots">
+        </div>
+      </div>
+
+
+
+      <div class="row" >
+        <div class="col-lg-4">
+          <h4 style="margin-top:70px">Modelling</h4>
+          <h5>Regression</h5>
+          I chose regression based modelling as a first approach which allows to build comparatevily simple and interpretable models (compared to neural networks).
+          <br> What I decided to do is to go through several modeling techniques:
+          <li>Random forest regression</li>
+          <li>Gradient boosting</li>
+          <li>CatBoost</li>
+          <li>XGBoost</li>
+          But before that it's necessary to generate some features.
+          <br>
+          <h6>Feature generation</h6>
+          <p>As soon as the data is 1-dimensional to build a more accurate model we need to generate more features. <br>
+          One approach is to generate polynomial features, but as soon as we have time series data it makes more sense to generate features
+          such as previous values (lags), rollong sum and rolling mean. Tim window for feature generation is 52 week.</p>
+          I was not totally satisfied with metrics for regression models and decided to try a more complex approach - neural networks.
+        </div>
+        <div class="col-lg-8">
+
+          <table id='sortTable' class="table table-hover table-sm" style="margin-top:100px;margin-left:40px;vertical-align: middle;">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 25%;">Model name</th>
+                <th scope="col">Model selection method</th>
+                <th scope="col">Model parameters</th>
+                <th scope="col">RMSE</th>
+                <th scope="col">R2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Random Forest Regressor</th>
+                <td>RandomizedSearchCV</td>
+                <td>'n_estimators': 800 <br>
+                  'min_samples_split': 5 <br>
+                 'min_samples_leaf': 2 <br>
+                 'max_features': 'auto' <br>
+                 'max_depth': None <br>
+                 'bootstrap': True}</td>
+                <td>41619269.83</td>
+                <td>0.719</td>
+              </tr>
+              <tr class>
+                <th scope="row">Gradient boosting</th>
+                <td>GridSearchCV</td>
+                <td>'max_depth':3 <br>
+                    'n_estimators':200</td>
+                <td>41945316.74</td>
+                <td>0.650</td>
+              </tr>
+              <tr>
+                <th scope="row">CatBoost</th>
+                <td>GridSearchCV</td>
+                <td>learning_rate': 0.1 <br>'max_depth': 2 <br> 'n_estimators': 100</td>
+                <td>42637222.43</td>
+                <td>0.638</td>
+                <!-- <td> <img style="width: 150px; height: 150;" src="/static/airfoils/airfoils_dnn_res.png" alt=""></td> -->
+              </tr>
+              <tr class="table-success">
+                <th scope="row">XGBoost</th>
+                <td>GridSearchCV</td>
+                <td>'learning_rate': 0.01<br> 'max_depth': 3<br> 'n_estimators': 500</td>
+                <td>36596551.07</td>
+                <td>0.782</td>
+
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+      </div>
+
+
+
+      <div class="row" >
+        <div class="col-lg-4">
+          <h5 style="margin-top:30px">LSTM</h5>
+          If we consider time series, the natural choice is a long short-term memory neural networks which are basically a type of
+          recurrent neural networks which allow to take into the account precedent data (or 'remember' it) so it's a great option for time series prediction tasks.
+          <br>
+          <h6>Train and test sets</h6>
+          I split my data into train and test sets with proportions of 80% and 20% respectively though I thought about increasing test size up to 85% to gain maximum sequence information due to unusual data of year 2020, which was caused by Covid.
+          <!-- But what I wanted to do is to gain maximum sequence information due to unusual data of year 2020, which was caused by Covid.
+          Moreover, the train set had a spike in January, common for all precedent years, which is a nice feature for estimating accuracy of the model. -->
+          <br>
+          <p>I performed a self-made grid search which iterated over following parameters:
+            <li>Number of hidden units: 5, 10, 15, 25, 50</li>
+            <li>Number of stacked LSTM layers over the first one: 0,1,2</li>
+          </p>
+          <p>I used early stoppingg approach with maximum number of epochs equal to 1000 and patience parameter of 20. For each combination of parameters I fitted 5 models and on the plot on the right you can see mean RMSE values for those models.</p>
+        </div>
+        <div class="col-lg-8">
+            <iframe style="width: 100%; height: 600px;" src="/static/sales/sales_LSTM.html" title="sales_LSTM" ></iframe>
+
+        </div>
+      </div>
+
+
+
+      <div class="row" >
+        <div class="col-lg-4">
+          <h4 style="margin-top:70px">Recommender system</h4>
+          <p>As a part of this project a recommender system was developed using user-user (customer-customer) approach, which means that for each customer I created a sparse vector of products which contained values of number of purchased items.
+          That vectors were used to identify similar customers by cosine similarity. As soon as there were not so many customers I simply calculated pairwise cosine similarity and found closest pairs with each customer. <br>
+          Then I found products which were purchased by similar customers and were not purchased by the considered customer. This products formed a recommendation list for a particular customer which then was used by sales team.</p>
+        </div>
+        <div class="col-lg-4">
+          <img style="width: 100%;" src="/static/sales/heatmap.png" alt="heatmap">
+          <!-- <iframe style="width: 100%; height: 600px;" src="/static/sales/resultsAll.html" title="" ></iframe> -->
+
+        </div>
+        <div class="col-lg-4">
+          <img style="width: 100%;" src="/static/sales/df_recommendation.png" alt="df_recommendation">
+          <!-- <iframe style="width: 100%; height: 600px;" src="/static/sales/resultsAll.html" title="" ></iframe> -->
+
+        </div>
+      </div>
+
+
+      <div class="row" >
+        <div class="col-lg-4">
+          <h4 style="margin-top:70px">Final results and thoughts</h4>
+          <h5>Final results</h5>
+          What do we have in the end? We have a bunch of models which are not outstanding from RMSE point of view.
+          But what we can do is to imitate a voting regressor, i.e. having numerous (not in my case but still) models, take an average of their predictions.
+          <br>
+          <p>What can be done to improve the model? We can do several things:
+          <li>Increasing number of features by obtaining some external data which possibly affects the sales, e.g. volume of housing commissioned, GDP, etc. </li>
+          <li>Stratify customers by clustering or by amount of purchased goods</li>
+          <li>Obtain more data</li></p>
+          <p>Regarding Recommender system, the following question can be discussed with stakeholders: should we check if companies are similar in terms of total sales or half a year or last month, etc?
+            From statistical point of view we could approach this question by defining the mean period which leads to significant difference in companies purchases. Say we set a threshold of 20%:
+            <li>1. We get a compnay's product set for the 3rd/6th month (to avoid possible significant differences during the initial period when product range is unstable)</li>
+            <li>2. Then with a time step of 1 month we check if If the company's top-N product range differs by 20%</li>
+            <li>3. Then we can define the mean period for all companies</li>
+          </p>
+        </div>
+        <div class="col-lg-8">
+
+          <iframe style="width: 100%; height: 600px;" src="/static/sales/resultsAll.html" title="" ></iframe>
+
+        </div>
+      </div>
+
+
+
+
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+  </body>
+  <footer style="color:grey; position: relative; bottom:10px;left:10px;">
+    Made using Django, Bootstrap, JavaScript and AWS by Ilia Notin
+  </footer>
+</html>

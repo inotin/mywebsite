@@ -10,20 +10,24 @@
 
   <body>
     <a href="{%url 'home'%}"><button type="button" style="margin-top:20px; margin-left:12px; color:grey;" class="btn btn-light">← Back home</button></a>
-    <h1 style="margin-top:30px; margin-left: 10px;">Sales<a href="https://github.com/inotin/moviePosters"><img style="height:28px" src="{%static 'GitHub-Mark-120px-plus.png'%}" alt=""></a></h1>
+    <h1 style="margin-top:30px; margin-left: 10px;">Fake News<a href="https://github.com/inotin/realFake"><img style="height:28px" src="{%static 'GitHub-Mark-120px-plus.png'%}" alt=""></a></h1>
     <div class="container" style="max-width: 100%;">
+      <div class="row" style="margin-bottom:30px;">
+        <div class="col-lg">
+            <span class="badge rounded-pill bg-primary">NLP</span>
+            <span class="badge rounded-pill bg-primary">Dimensionality reduction</span>
+            <!-- <span class="badge rounded-pill bg-primary">APIs</span>
+            <span class="badge rounded-pill bg-primary">Neural networks</span> -->
+        </div>
+      </div>
       <div class="row" >
         <div class="col-lg-4">
-          <h5>Overview</h5>
+          <h3>Overview</h3>
+          <p>The primary goal of this project is to build a logistic regression model based on features generated from textual information capable of prediction whether given article (piece of text) represents fake or real news. In order to reduce amount of used features, i.e. reduce dimensionality of the model, principal component analysis (PCA) was applied. The obtained results demonstrate that using PCA helps to reduce number of used features by 99,4% without signiﬁcant decrease of the model accuracy. </p>
 
-          <p>This project is based on a real-world sales data of a B2B company. The primary goal was to predict monthly sales for the following year.
-            The secondary one was to find similar companies and build a recommender system.
-          <h6>Dataset info</h6>
-          <p>The initial dataset was in form of excel table and contained <b>288707</b> records for years from 2018 to 2021 (Q1) <br>
-            Each record had information on: date, product, quantity, cost, company, company tax number</p>
         </div>
         <div class="col-lg-8">
-          <img style="width: 100%; margin-top: 45px;" src="{%static 'movies_img1.png'%}" alt="img1">
+          <img style="width: 100%; margin-top: 45px;" src="{%static 'fakeReal/fakeReal_img0.jpg'%}" alt="img0">
 
         </div>
       </div>
@@ -31,100 +35,156 @@
 
       <div class="row" style="margin-top:40px">
         <div class="col-lg-4">
-          <h5>Analysis</h5>
-          <h6 style="margin-top:40px">Number of movies per year</h6>
-
-          <p> The number of movies is increasing exponencially throughout years. Though it is interesting that there was a stagnation in 2008-2010 and in 2017-2018.
-            I would suggest that it is due to the random nature of sampling, i.e. I used only about 1/7 of the whole cinematography and even though the sampling is based on the uniform distribution I would not ommit that kind of issue.
-            <br>There is a significant drop in 2020 which is obviously connected with the corona virus crisis. The numbers for 2021 and 2022 are not the final yet and it will be curious to see how it changes.
+          <h4>Dataset info</h4>
+          <p> <b>Data source</b><br>
+          Data set name: fake and real news dataset
+          Link: https://www.kaggle.com/clmentbisaillon/fake-and-real-news-dataset
+          Initially there were two separate ﬁles with real and fake news. I merged them with adding the target variable column <b>tr</b>. </p>
+          <p><b>Features:</b><br>
+          title - The title of the article <br>
+          text - The text of the article <br>
+          subject - The subject of the article <br>
+          date - The date at which the article was posted <br>
           </p>
-        </div>
-        <div class="col-lg-8">
-
-          <iframe style="width: 100%; height: 400px;" src="{%static 'movies_hist.html'%}" title="Histogram" ></iframe>
-
-        </div>
-      </div>
-
-
-      <div class="row" >
-        <div class="col-lg-4">
-          <h6 style="margin-top:70px">Mean color distributions vs Year</h6>
-
-          <p>It's curious that initially the ratio of black color was pretty high which cn be connected with presence of only black and white movies.
-            Then in the forties the amount of black decreased which I connect with the desire of the society to compensate the negative emotions during and after the 2nd World War.
-            In foloowing periods the amount of black increases, while white and other colors are less used. The reason for that is probably the increase in the amount of horror and thriller movies in this period,
-            which use black as a main color.
+          <p><b>Target variable</b><br>
+          tr - fake, if 0; real, if 1 <br>
           </p>
+          <p>The final data frame which I used for model fitting contains 500 variables representing one hot encoded words and ngrams (as a result of vectorization) from article texts for each article. The last column of this data frame (tr) has values 0, when article is fake and 1 when it is real.
+The data frame consists of 44898 records and was subsequently split into train and test dataset with proportions of 70/30 using randomized choice.</p>
         </div>
         <div class="col-lg-8">
 
-          <iframe style="width: 100%; height: 600px;" src="{%static 'movies_years.html'%}" title="Colors vs Years" ></iframe>
-
-        </div>
-      </div>
-
-
-
-
-      <div class="row" >
-        <div class="col-lg-4">
-
-          <h6 style="margin-top:70px">Colors and genres</h6>
-
-            <p> As it was expected the horror and thriller movies are the ones that use black the most. In the same time comedy is the one that uses primarily white colors.
-              I would also admit the extensive use of RGB colors in animation, adventure and family movies.
-              Another observation is that the orange color (255,136,0) which is usually associated with skin color is used the least in science fiction whereas the use of blue (0,136,255) is the most extensive in this genre.
-              The reason for that is probably that science fiction posters involve technology which is associated with blue and usually replaces the human presence (orange color).
-            </p>
-        </div>
-        <div class="col-lg-8">
-          <img style="width: 100%; margin-top: 45px;" src="{%static 'movies_img2.png'%}" alt="img2">
-          <iframe style="width: 100%; height: 620px;" src="{%static 'movies_genres.html'%}" title="Colors vs Genres" ></iframe>
-
-        </div>
-      </div>
-
-
-
-
-      <div class="row" >
-        <div class="col-lg-4">
-
-          <h6 style="margin-top:70px">Colors and countries</h6>
-
-            <p> I considered countries with the highest GDP in this barplot. It's interesting that India demonstrates a significant variety of used RGB colours and lack of black compared to other ones.
-              Russian movie posters do not involve much use of white color, though it has RGB usage comparable with India. Canadian movie posters are the ones that use black the most (from the considered countries).
-              It is hard to tell the distinct reasons for the observed differences but probably it has cultural reasons.
-            </p>
-        </div>
-        <div class="col-lg-8">
-
-          <iframe style="width: 100%; height: 620px;" src="{%static 'movies_countries.html'%}" title="Colors vs Countries" ></iframe>
+          <img style="width: 100%; margin-top: 45px;" src="{%static 'fakeReal/fakeReal_img1.png'%}" alt="img0">
 
         </div>
       </div>
 
 
       <div class="row" >
-
         <div class="col-lg-4">
-          <h6>Colors and countries on the map</h6>
-            <p> I tried to define the most used color from RGB range expecting to get a colourful map, but it turns out that the most used color is orange. This fact can be explained by the presence of people on the posters regardless of country.
-            </p>
+          <h4 style="margin-top:70px">Exploratory data analysis</h4>
+          <h5>Data balance</h5>
+
+
+          <p>The data looks balanced.</p>
+        </div>
+        <div class="col-lg-8">
+
+          <iframe style="width: 100%; height: 600px;" src="{%static 'fakeReal/fakeReal_balance.html'%}" title="Data Balance" ></iframe>
+
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-4">
+          <h5 style="margin-top:70px">Distribution by date</h5>
+          <p>As it can be seen we have a slightly different distribution for fake news. Even though the date feature can be considered a significant factor for the current case, I would not use it due to generalizability considerations as the method of obtaining initial data set is unclear. So let's drop it together with the time stamp</p>
         </div>
 
         <div class="col-lg-8">
-          <iframe style="width: 100%; height: 620px;" src="{%static 'movies_map.html'%}" title="Colors vs Countries" ></iframe>
+          <iframe style="width: 100%; height: 600px;" src="{%static 'fakeReal/fakeReal_dates.html'%}" title="Data Balance" ></iframe>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-4">
+          <h5 style="margin-top:70px">Distribution by subject</h5>
+          <p></p>
         </div>
 
+        <div class="col-lg-8">
+          <iframe style="width: 100%; height: 600px;" src="{%static 'fakeReal/fakeReal_subjects.html'%}" title="Data Balance" ></iframe>
+        </div>
       </div>
+
+
+      <div class="row">
+        <div class="col-lg-4">
+          <h4 style="margin-top:70px">Preprocessing</h4>
+          <p>For modelling I chose logistic regression as it was a natural choice due to binary nature of the target variable.</p>
+
+          <p>I also considered logistic regression approach with prelimenary PCA for dimensionality reduction.</p>
+          <p>Regarding preprocessing I used CountVectorizer for text
+          vectorization with parameters adjusted in grid search model. The plot reflecting this search for logistic regression model is provided here.
+        The optimal set of parameters is marked by the red dot.</p>
+        </div>
+
+        <div class="col-lg-8">
+          <iframe style="width: 100%; height: 850px;" src="{%static 'fakeReal/fakeReal_accuracies.html'%}" title="Data Balance" ></iframe>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-4">
+          <h4 style="margin-top:70px">Modelling</h4>
+          <p>In the table on the right I provide the results for these models.</p>
+        </div>
+
+        <div class="col-lg-8">
+          <table class="table table-hover table-sm" style="margin-top:100px;margin-left:40px;vertical-align: middle;">
+            <thead>
+              <tr>
+                <th scope="col" style="width: 25%;">Model name</th>
+                <th scope="col">Model parameters</th>
+                <th scope="col">Accuracy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="table-success">
+                <th scope="row">Logistic Regression</th>
+                <td>Number of features: 500</td>
+                <td>0.991</td>
+              </tr>
+              <tr class>
+                <th scope="row">PCA + Logistic Regresion</th>
+                <td>Number of features: 3 <br>
+                <td>0.840</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-4">
+          <h4 style="margin-top:70px">Feature importances</h4>
+          <p>Feature importances are provided on the plot below.</p>
+        </div>
+
+        <div class="col-lg-8">
+          <iframe style="width: 100%; height: 1000px;" src="{%static 'fakeReal/fakeReal_imp1.html'%}" title="Feature importances" ></iframe>
+        </div>
+      </div>
+
+
+      <div class="row">
+        <div class="col-lg-4">
+          <h4 style="margin-top:70px">Conclusion</h4>
+          <p>PCA can effectively decrease model complexity in NLP domain. Reducing the number of features from 500 to 3 resulted in only 15% decrease in accuracy.</p>
+          <h5>Ways to improve the current approach</h5>
+          <li>Define and remove outliers</li>
+          <li>Regularization</li>
+          <li>Introduce additional available data and generate new features (e.g., text lengths)</li>
+          <li>MCA (Multiple Correspondence Analysis) / CATPCA</li>
+        </div>
+
+        <div class="col-lg-8">
+
+        </div>
+      </div>
+
+
+
 
 
     </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
   </body>
-  <footer style="color:grey; position: relative; bottom:10px;left:10px;">
+  <footer style="color:grey; position: relative; bottom:10px;left:10px; margin-top:30px">
     Made using Django, Bootstrap, JavaScript and AWS by Ilia Notin
   </footer>
 </html>

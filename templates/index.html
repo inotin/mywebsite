@@ -8,25 +8,61 @@
     <link rel="stylesheet" href="{%static 'ds.css'%}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="{%static 'favicon.png'%}" type="image/x-icon">
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="{%static 'favicons/apple-touch-icon.png'%}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{%static 'favicons/favicon-32x32.png'%}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{%static 'favicons/favicon-16x16.png'%}">
+    <link rel="manifest" href="{%static 'favicons/site.webmanifest'%}">
+    <link rel="mask-icon" href="{%static 'favicons/safari-pinned-tab.svg'%}" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- <link rel="shortcut icon" href="{%static 'favicons/favicon.png'%}" type="image/x-icon"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="{%static 'ds.js'%}"></script> -->
+    <script type="text/javascript">
+       function toggle_visibility(id) {
+           var e = document.getElementById(id);
+           if(e.style.visibility == 'hidden')
+              e.style.visibility = 'visible';
+           else
+              e.style.visibility = 'hidden';
+       }
+    </script>
+
+
   </head>
   <body>
-    <div class='logo1' style="height:100px;width:600px"></div>
+    <div class="overlay" id="ovr" style="visibility: hidden;">
+      <div class="d-flex justify-content-center" style="margin-top:25%">
+        <div class="spinner-border" role="status">
+          <span class="sr-only"></span>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+    <div class='logo1' style="height:100px;width:600px" ></div>
     <div class="container-fluid">
       <div class="row">
 
-        <div class="col" id='cell1' onclick="location.href='{%url 'cell1'%}'">
+        <div class="col" id='cell1' onclick="toggle_visibility('ovr');location.href='{%url 'cell1'%}'">
           <a href="{%url 'cell1'%}" id="cellTitle"> PGN Stats</a>
           <p id="hint">Find out the most popular openings
           of the best chess players</p>
         </div>
 
-        <div class="col" id='cell2' onclick="location.href='{%url 'cell2'%}'">
+        <div class="col" id='cell2' onclick="toggle_visibility('ovr');location.href='{%url 'cell2'%}'">
           <a href="{%url 'cell2'%}" id="cellTitle"> MiLuogo</a>
           <p id="hint">Find the best place to live in Milan based on your priorities</p>
         </div>
 
-        <div class="col" id='cell3' onclick="location.href='{%url 'cell3'%}'">
+        <div class="col" id='cell3' onclick="toggle_visibility('ovr');location.href='{%url 'cell3'%}'">
           <a href="{%url 'home'%}" id="cellTitle"> Reviewlizer</a>
           <p id="hint">Save your time and get assessment of the product based on YouTube reviews</p>
         </div>
@@ -57,7 +93,7 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col" id='cell7' onclick="location.href='{%url 'cell7'%}'">
+        <div class="col" id='cell7' onclick="toggle_visibility('ovr');location.href='{%url 'cell7'%}'">
           <a href="{%url 'cell7'%}" id="cellTitle">InstaSeer</a>
           <p id="hint">Trying to predict likes for your future post</p>
         </div>
@@ -78,6 +114,8 @@
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+
+
   </body>
   <br>
   <footer style="color:grey; position: relative; bottom:-50px;left:10px;">
