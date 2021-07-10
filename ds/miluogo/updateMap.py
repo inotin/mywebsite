@@ -226,6 +226,8 @@ def updateMap():
     feature_groups = []
     feature_groups.append(feature_group1)
 
+    print(dfCompanies)
+    
     meanLat = dfCompanies["lt"].mean()
     meanLon = dfCompanies["lg"].mean()
 
@@ -234,7 +236,7 @@ def updateMap():
 
     medianLocation = (medianLat, medianLon)
     meanLocation = (meanLat, meanLon)
-
+    print(meanLocation)
     feature_group2 = folium.FeatureGroup(name="Optimal Locations based on companies")
     folium.Marker([meanLat, meanLon],
                         popup='<i>Mean location</i>',

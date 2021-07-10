@@ -85,48 +85,68 @@ def getCompaniesDataframe(googleAPIKey,
                    "lt" : [],
                    "lg" : [],
                    "address" : []}
-
+    # input(urlList)
     for url in urlList:
         session = requests.session()
         response = session.get(url)
 
         soup = BeautifulSoup(response.text, 'html.parser')
+        # # input(response.text)
+        # for element in soup.find_all('span', class_='companyName'):
+        #     #print(element)
+        #     #input()
+        #     try:
+        #         name = element.find('a', class_="turnstileLink companyOverviewLink").text.strip()
+        #         #print(name)
+        #     except:
+        #         name = element.text.strip()
+        #         #print(name)
+        #
+        #     companyInfo["companyName"].append(name)
+        #     print('='*10)
+        #     print('Company name:'+str(name))
+        import re
+        for element in soup.find_all('a', id=re.compile('^job_')):
+        #     print(element)
 
-        for element in soup.find_all('span', class_='company'):
-            #print(element)
-            #input()
-            try:
-                name = element.find('a', class_="turnstileLink").text.strip()
-                #print(name)
-            except:
-                name = element.text.strip()
-                #print(name)
-            companyInfo["companyName"].append(name)
-
-        for element in soup.find_all('h2', class_='title'):
-            #print(element)
-            #print(element.find('a').get("href"))
-            try:
-                currentLink = element.find('a').get("href")
-                companyInfo["link"].append("https://it.indeed.com"+currentLink)
-                #print("Link: "+"https://it.indeed.com"+currentLink)
-            except:
-                print("Error adding link")
-                companyInfo["link"].append(np.nan)
-                #print(element)
-                #input()
-            try:
-                jobName = element.find('a', class_="jobtitle turnstileLink ").text.strip()
-                #print(jobName)
-                #print("JobName Try Branch")
-            except:
-                jobName = element.text.strip()
-                #print(jobName)
-                #print("JobName Except Branch")
-            #print(jobName)
+            print(element['href'])
+            jobName = element.find('span', class_=lambda x: x != 'label').text
+            print(jobName)
+            companyInfo["link"].append("https://it.indeed.com"+str(element['href']))
             companyInfo["jobName"].append(jobName)
+            name = element.find('span', class_='companyName').text
+            print(name)
+            companyInfo["companyName"].append(name)
+            print('='*10)
+        # for element in soup.find_all('div', class_="job_seen_beacon"):# id=re.compile('^job_')): #class_='tapItem fs-unmask result'):
+        #     input(element)
+        #     #print(element.find('a').get("href"))
+        #     try:
+        #         currentLink = element.find('a').get("href")
+        #         companyInfo["link"].append("https://it.indeed.com"+currentLink)
+        #         #print("Link: "+"https://it.indeed.com"+currentLink)
+        #     except:
+        #         print("Error adding link")
+        #         companyInfo["link"].append(np.nan)
+        #         #print(element)
+        #         #input()
+        #
+        #     try:
+        #         jobName = element.find('h2', class_="jobTitle jobTitle-color-purple").text.strip()
+        #         #print(jobName)
+        #         #print("JobName Try Branch")
+        #     except:
+        #         jobName = element.text.strip()
+        #         #print(jobName)
+        #         #print("JobName Except Branch")
+        #     input(jobName)
+        #     companyInfo["jobName"].append(jobName)
 
     #Sanity check if any info was lost/missed
+    print(len(companyInfo["companyName"]))
+    print(len(companyInfo["jobName"]))
+    print(len(companyInfo["link"]))
+    # input()
     assert len(companyInfo["companyName"]) == len(companyInfo["jobName"]) == len(companyInfo["link"])
 
     # In order to get companies' locations I need their address which I can get using Google Maps API.
@@ -135,14 +155,25 @@ def getCompaniesDataframe(googleAPIKey,
     geolocator = GoogleV3(api_key = googleAPIKey)
 
     for company in companyInfo["companyName"]:
+        print(company)
         rawName = str(company+" Milano").replace(" ","+")
+
         url = 'https://maps.googleapis.com/maps/api/geocode/json?'+'address={}&key={}'.format(rawName,googleCreds.GOOGLE_API_KEY)
         p = {'address' : 'Milano'}
+        reqStatus = None
+        attemptsLimit = 10
+        numberOfAttempt = 0
+        # while reqStatus!='OK' or numberOfAttempt<=attemptsLimit:
         r = requests.get(url, params = p).json()
-
+        reqStatus=r['status']
+        numberOfAttempt+=1
+        print(reqStatus)
         time.sleep(0.5)
+        #print(f'Attempt {numberOfAttempt} for {company}')
+        # try:
+
+        results = r['results']
         try:
-            results = r['results']
             results = results[0]
 
             location = geolocator.geocode(results["formatted_address"])
@@ -171,8 +202,8 @@ def getCompaniesDataframe(googleAPIKey,
     dfCompanies = pd.DataFrame(companyInfo)
     dfCompanies = dfCompanies[dfCompanies["address"].astype(str).str.contains(city)]
 
-    if dropNAs:
-        dfCompanies.dropna(inplace = True)
+
+    dfCompanies.dropna(inplace = True)
 
     if savePickle:
         dfCompanies.to_pickle(dfPath)

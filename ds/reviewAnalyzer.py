@@ -449,6 +449,8 @@ def getSetScoresText(productNames, productKeyWords, plot = False, maxNumber = 5,
     Output:
     pandas dataframe with scores
     """
+    global fig
+
     productNames = productNames.replace('\r','')
     productKeyWords = productKeyWords.replace('\r','')
 
@@ -491,11 +493,14 @@ def getSetScoresText(productNames, productKeyWords, plot = False, maxNumber = 5,
                     fig.add_trace(go.Bar(x=df['name'], y=df[n], name = n),
                                   row=r, col=1,)
                     r+=1
+
             fig.update_layout(height=200*numOfPlots)
             fig.write_html("static/reviewlizer/reviewlizerResult.html")
+
+
         #Histograms
-        fig = px.histogram(df2[df2['mean']!=0],x='mean', facet_col='keyword', facet_row='name', labels={'mean':'mean score'})
-        fig.write_html("static/reviewlizer/reviewlizerHistograms.html")
+        px.histogram(df2[df2['mean']!=0],x='mean', facet_col='keyword', facet_row='name', labels={'mean':'mean score'}).write_html("static/reviewlizer/reviewlizerHistograms.html")
+
 
         thresholdPvalue = 0.1
 #df5 = pd.DataFrame()

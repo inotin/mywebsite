@@ -10,7 +10,7 @@ tqdm.pandas()
 import plotly.express as px
 from sklearn.feature_extraction.text import TfidfVectorizer
 
-from instascrape import Profile
+# from instascrape import Profile
 from collections import defaultdict
 from googletrans import Translator
 import requests

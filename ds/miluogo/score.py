@@ -59,7 +59,7 @@ def score(jobName, price_importance, work_importance, danger_importance, air_imp
     dfCompanies = dataGeneration.getCompaniesDataframe(jobName=jobName,
                                         maxPages = 3,
                                         googleAPIKey = googleCreds.GOOGLE_API_KEY)
-
+    print(dfCompanies)
     dfGreen = dataGeneration.getGreenZonesDataframe()
     dfAirStations = dataGeneration.getAirQualityDataframe()
     dfAccommodations = dataGeneration.getAccommodationDF(maxPages=3)
