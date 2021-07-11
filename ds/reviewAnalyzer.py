@@ -79,23 +79,27 @@ def getTextFromYoutubeCaptions(vidId):
     Output:
     str: list of words from the captions
     """
-
-    transcript_list = YouTubeTranscriptApi.list_transcripts(vidId)
-    captions = ["NoText"]
     try:
-        captions = YouTubeTranscriptApi.get_transcript(vidId, languages=['en'])
+        transcript_list = YouTubeTranscriptApi.list_transcripts(vidId)
+        captions = ["NoText"]
+        try:
+            captions = YouTubeTranscriptApi.get_transcript(vidId, languages=['en'])
+        except:
+            #print("!Translating captions to English")
+            transcript = transcript_list.find_transcript(['ru','it'])
+            captions = transcript.translate('en').fetch()
+            #print(captions)
+            #input()
+        text = ""
+
+        for element in captions:
+            text+=element['text']+" "
+        text = text.replace("\n"," ")
+        # print(text)
+        return text
     except:
-        #print("!Translating captions to English")
-        transcript = transcript_list.find_transcript(['ru','it'])
-        captions = transcript.translate('en').fetch()
-        #print(captions)
-        #input()
-    text = ""
-    #print(captions)
-    for element in captions:
-        text+=element['text']+" "
-    text = text.replace("\n"," ")
-    return text
+        print('Captions are not available')
+        return 'Captions are not available'
 
 #Testing function
 # getTextFromYoutubeCaptions("eOW9jgCahnk")[:100]
@@ -144,8 +148,9 @@ def getTextFromUrl(url):
 # In this sections scoring functions are defined. They return score for a given piece of text. The higher the score the more positive text is. Further these functions will be used to assess pieces of text around keywords.
 
 # In[175]:
-
-
+import nltk
+nltk.download('opinion_lexicon')
+nltk.download('vader_lexicon')
 def assessPolarity(text):
     """
     Polarity assessment based on Liu and Hu opinion lexicon
@@ -272,7 +277,8 @@ def assessPolarityCustom(text, dictScores=None):
 # In this section the function is defined which allows to extract a set amount of words around a key word.
 
 # In[178]:
-
+# import nltk
+# nltk.download('stopwords')
 
 def getPieceByKeyWords(text, keyWords, backward=5, forward=5):
     """
@@ -287,7 +293,8 @@ def getPieceByKeyWords(text, keyWords, backward=5, forward=5):
     Output:
     list(str): list of words close to a given keyword
     """
-    stop_words = set(stopwords.words('english'))
+
+    #stop_words = set(stopwords.words('english'))
     tokenizer = treebank.TreebankWordTokenizer()
     wordsList = [word.lower() for word in tokenizer.tokenize(text)]
 
@@ -315,28 +322,29 @@ def getScores(dct, keyWords):
     scoresDict = defaultdict()
     dctForHist = {'name':[],'keyword':[], 'aP':[], 'aPV':[],'aPC':[]}
     for url in tqdm(dct['urls']):
-        try:
-            if 'youtube' in url:
-                text = getTextFromYoutubeCaptions(url.split('=')[1])
-            else:
-                text = getTextFromUrl(url)
+        # try:
+        if 'youtube' in url:
+            text = getTextFromYoutubeCaptions(url.split('=')[1])
+        else:
+            text = getTextFromUrl(url)
 
-            for keyWord in keyWords:
-                textList = getPieceByKeyWords(text,[keyWord])
-                aP, aPV, aPC = 0, 0, 0
-                for t in textList:
-                    aP+=assessPolarity(t)
-                    aPV+=assessPolarityVader(t)
-                    aPC+=assessPolarityCustom(t)
-                scoresDict[keyWord] = [aP,aPV,aPC]
-                #print(keyWord,aP,aPV,aPC)
-                dctForHist['name'].append(dct['name'])
-                dctForHist['keyword'].append(keyWord)
-                dctForHist['aP'].append(aP)
-                dctForHist['aPV'].append(aPV)
-                dctForHist['aPC'].append(aPC)
-        except:
-            pass
+        for keyWord in keyWords:
+            textList = getPieceByKeyWords(text,[keyWord])
+            aP, aPV, aPC = 0, 0, 0
+            for t in textList:
+                aP+=assessPolarity(t)
+                aPV+=assessPolarityVader(t)
+                aPC+=assessPolarityCustom(t)
+            scoresDict[keyWord] = [aP,aPV,aPC]
+            #print(keyWord,aP,aPV,aPC)
+            dctForHist['name'].append(dct['name'])
+            dctForHist['keyword'].append(keyWord)
+            dctForHist['aP'].append(aP)
+            dctForHist['aPV'].append(aPV)
+            dctForHist['aPC'].append(aPC)
+        # except:
+        #     print(f'Captions were not obtained for {url}')
+        #     pass
     df3 = pd.DataFrame(dctForHist)
     df3['mean']=np.mean(df3[['aP', 'aPV', 'aPC']],axis=1)
 
@@ -449,7 +457,8 @@ def getSetScoresText(productNames, productKeyWords, plot = False, maxNumber = 5,
     Output:
     pandas dataframe with scores
     """
-    global fig
+    #global fig
+    fig = None
 
     productNames = productNames.replace('\r','')
     productKeyWords = productKeyWords.replace('\r','')
@@ -574,4 +583,14 @@ def getSetScoresText(productNames, productKeyWords, plot = False, maxNumber = 5,
     #HTML(dfIm2.style.hide_index().set_properties(**{'font-size': '11pt','background-color': '#edeeef','border-color': 'black','border-style' :'solid' ,'border-width': '0px','border-collapse':'collapse'}).render())
     dfIm2.to_html('static/reviewlizer/reviewlizerDf.html', escape=False ,formatters=dict(image=path_to_image_html))
     #df.to_html('static/reviewlizerDf.html', index=False, border = 0)
+    with open('static/reviewlizer/reviewlizerDf.html', 'r') as file:
+        data = file.read()
+    data = data.replace('<table border="1" class="dataframe">', '<table class="table">')
+
+    data = data.replace("style=\"text-align: right;\"", "style=\"text-align: left;\"")
+    data = '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">\n' + data
+    # with open("InstaSeerDf2.html", "w") as file:
+    #      file.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl\" crossorigin=\"anonymous\">")
+    with open("static/reviewlizer/reviewlizerDf.html", "w") as file:
+        file.write(data)
     return df
