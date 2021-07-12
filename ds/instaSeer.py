@@ -249,11 +249,10 @@ def getScores(imgURLs, captionTexts):
     dfInstaSeer.to_html('static/instaSeer/instaSeerDf.html', escape=False ,formatters=dict(image=path_to_image_html))
     with open('static/instaSeer/instaSeerDf.html', 'r') as file:
         data = file.read()
-    data = data.replace('<table border="1" class="dataframe">', '<table class="table">')
-
+    data = data.replace('<table border="1" class="dataframe">', '<meta http-Equiv="Cache-Control" Content="no-cache" /> <meta http-Equiv="Pragma" Content="no-cache" /> <meta http-Equiv="Expires" Content="0" /> <table class="table">')
     data = data.replace("style=\"text-align: right;\"", "style=\"text-align: left;\"")
     data = '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">\n' + data
     # with open("InstaSeerDf2.html", "w") as file:
     #      file.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl\" crossorigin=\"anonymous\">")
-    with open("static/instaSeer/InstaSeerDf2.html", "w") as file:
+    with open("static/instaSeer/instaSeerDf.html", "w") as file:
         file.write(data)

@@ -505,6 +505,15 @@ def getSetScoresText(productNames, productKeyWords, plot = False, maxNumber = 5,
 
             fig.update_layout(height=200*numOfPlots)
             fig.write_html("static/reviewlizer/reviewlizerResult.html")
+            with open('static/reviewlizer/reviewlizerResult.html', 'r') as file:
+                data = file.read()
+            data = data.replace('<table border="1" class="dataframe">', '<meta http-Equiv="Cache-Control" Content="no-cache" /> <meta http-Equiv="Pragma" Content="no-cache" /> <meta http-Equiv="Expires" Content="0" /> <table class="table">')
+            data = data.replace("style=\"text-align: right;\"", "style=\"text-align: left;\"")
+            data = '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">\n' + data
+            # with open("InstaSeerDf2.html", "w") as file:
+            #      file.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl\" crossorigin=\"anonymous\">")
+            with open("static/reviewlizer/reviewlizerResult.html", "w") as file:
+                file.write(data)
 
 
         #Histograms
@@ -550,6 +559,19 @@ def getSetScoresText(productNames, productKeyWords, plot = False, maxNumber = 5,
         df8 = df8[df8['pvalue']<0.3]
         df8 = df8.iloc[:,1:]
         df8.to_html('static/reviewlizer/reviewlizerPvalues.html', index=False)
+
+        with open('static/reviewlizer/reviewlizerPvalues.html', 'r') as file:
+            data = file.read()
+        data = data.replace('<table border="1" class="dataframe">', '<meta http-Equiv="Cache-Control" Content="no-cache" /> <meta http-Equiv="Pragma" Content="no-cache" /> <meta http-Equiv="Expires" Content="0" /> <table class="table">')
+        data = data.replace("style=\"text-align: right;\"", "style=\"text-align: left;\"")
+        data = '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">\n' + data
+        # with open("InstaSeerDf2.html", "w") as file:
+        #      file.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl\" crossorigin=\"anonymous\">")
+        with open("static/reviewlizer/reviewlizerPvalues.html", "w") as file:
+            file.write(data)
+
+
+
     #pd.set_option('display.max_colwidth', 60)
         f = px.box(df2, y='mean', facet_row='keyword', x='name', color='keyword')
         f.update_layout(height=150*len(df2['keyword'].unique()))
@@ -585,8 +607,7 @@ def getSetScoresText(productNames, productKeyWords, plot = False, maxNumber = 5,
     #df.to_html('static/reviewlizerDf.html', index=False, border = 0)
     with open('static/reviewlizer/reviewlizerDf.html', 'r') as file:
         data = file.read()
-    data = data.replace('<table border="1" class="dataframe">', '<table class="table">')
-
+    data = data.replace('<table border="1" class="dataframe">', '<meta http-Equiv="Cache-Control" Content="no-cache" /> <meta http-Equiv="Pragma" Content="no-cache" /> <meta http-Equiv="Expires" Content="0" /> <table class="table">')
     data = data.replace("style=\"text-align: right;\"", "style=\"text-align: left;\"")
     data = '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">\n' + data
     # with open("InstaSeerDf2.html", "w") as file:

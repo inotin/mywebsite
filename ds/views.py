@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from . import pgn, reviewAnalyzer, charwords, googleCreds, instaSeer
 from .miluogo import score, models, updateMap
+import pandas as pd
 def home(request):
     return render(request, 'index.html')
 
@@ -68,9 +69,10 @@ def cell3(request):
         reviewAnalyzer.getSetScoresText(input_productNames, input_productKeyWords, maxNumber=5, plot = True, api_key=googleCreds.GOOGLE_API_KEY2, cx = googleCreds.GOOGLE_CX)
         lastProductNames= input_productNames
         lastProductKeyWords = input_productKeyWords
+    plotHeight0 = str(int(50*len(pd.read_html('static/reviewlizer/reviewlizerPvalues.html')[0])))+'px'
     plotHeight1 = str(200*len(input_productNames.split('\n')))+'px'
     plotHeight2 = str(200*len(input_productKeyWords.split('\n')))+'px'
-    return render(request, 'reviewlizer.html', {'given_productNames':input_productNames,'given_productKeyWords':input_productKeyWords,'plotHeight1':plotHeight1,'plotHeight2':plotHeight2})
+    return render(request, 'reviewlizer.html', {'given_productNames':input_productNames,'given_productKeyWords':input_productKeyWords,'plotHeight0':plotHeight0,'plotHeight1':plotHeight1,'plotHeight2':plotHeight2})
 
 
 
@@ -82,7 +84,7 @@ def cell7(request):
     global lastCaptionTexts
     input_ImageUrls = request.GET.get('ImageUrls', 'https://s1.1zoom.ru/big3/11/Netherlands_Houses_478971.jpg\nhttps://timelapsenetwork.com/wp-content/uploads/TL-foto-Milano-City-5.jpg')
     input_CaptionTexts = request.GET.get('CaptionTexts', 'This is a beautiful picture of Nehtherlands #amsterdam #travel @user1 @user2\nThis is Milano #italy @user3')
-    if (input_ImageUrls!=lastProductNames) or (input_CaptionTexts!=lastCaptionTexts):
+    if (input_ImageUrls!=lastImageUrls) or (input_CaptionTexts!=lastCaptionTexts):
         instaSeer.getScores(input_ImageUrls, input_CaptionTexts)
         lastImageUrls = input_ImageUrls
         lastCaptionTexts = input_CaptionTexts

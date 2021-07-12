@@ -97,6 +97,9 @@ def playerExists(playerName, url="https://www.pgnmentor.com/files.html"):
 def getGraph(lastname, top = 30, directory_to_extract_to = 'downloads'):
     """
     """
+    if len(lastname)>1:
+        lastname=lastname[0].upper()+lastname[1:].lower()
+        
     if playerExists(lastname):
         #print('Downloading ZIP with PGNs of '+lastname)
         zipFileUrl = "https://www.pgnmentor.com/players/"+lastname+".zip"
