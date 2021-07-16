@@ -478,44 +478,34 @@ def getAccommodationDF(minPrice = 500, maxPrice = 5000, maxPages = 10, dfPath = 
 
     for url in urlList:
         session = requests.session()
-        response = session.get(url+"&boxAuto[]=1&boxAuto[]=4")
+        response = session.get(url)
 
         soup = BeautifulSoup(response.text, 'html.parser')
+    try:
+        for element in zip(soup.find_all('a', class_='Card_in-card__title__234gH'),soup.find_all('li', class_="Features_nd-list__item__3hWVx Features_in-feat__item__2-hIE Features_in-feat__item--main__3EFFl RealEstateListCard_in-realEstateListCard__features--main__2uSci")):
+            objID = element[0]['href'].split("/")[-2]
+            print(objID)
+            objType = element[0]['title'].split()[0]
+            print(objType)
+            objAddress = ' '.join(element[0]['title'].split()[1:])
+            print(objAddress)
+            objPrice = int(element[1].text.split("/")[0].split()[1].replace('.',''))
+            print(objPrice)
+            print('-'*25)
+            objects["id"].append(objID)
+            objects["type"].append(objType)
+            objects["address"].append(objAddress)
+            objects["price"].append(objPrice)
+    except:
+        pass
 
-        for element in soup.find_all('p', class_='titolo text-primary'):
-            try:
-                name = element.text.strip().split()
-                objects["id"].append(element.find('a').get("id"))
-                objects["type"].append(name[0])
-                objects["address"].append(" ".join(name[1:]))
-            except:
-                pass
-
-        for element in soup.find_all('li', class_='lif__item lif__pricing'):
-            try:
-                if element.find('div')==None:
-
-                    price = element.text.strip().split()[1]
-                    price= price.replace(".","")
-                    objects["price"].append(int(price))
-                else:
-
-                    price = element.find('div').text.strip().split()[1]
-                    price= price.replace(".","")
-
-                    objects["price"].append(int(price))
-            except:
-                pass
-
-            #Sanity check
-    assert len(objects["id"]) == len(objects["type"]) == len(objects["address"]) == len(objects["price"])
     print(f"All successful. {len(objects['id'])} objects has been added")
 
     dfObjects = pd.DataFrame(objects)
     dfObjects["coords"] = dfObjects["address"].map(getLoc)
     dfObjects.dropna(inplace = True)
     if savePickle:
-        dfObjects.to_pickle(dfPath+'dfObjects.pkl')
+        dfObjects.to_pickle(dfPath+'dfAccommodationsExpanded.pkl')
     return dfObjects
 
 

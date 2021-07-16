@@ -9,11 +9,13 @@ def home(request):
 def aboutit(request):
     return render(request, 'aboutit2.html')
 
-
+lastLastName = 'Adams'
 def cell1(request):
-    input_lastname = request.GET.get('lastname', 'Adams')
-
-    pgn.getGraph(input_lastname)
+    global lastLastName
+    input_lastname = request.GET.get('lastname', lastLastName)
+    if (input_lastname!=lastLastName):
+        pgn.getGraph(input_lastname)
+        lastLastName = input_lastname
     return render(request, 'pgn.html', {'given_lastname':input_lastname})
 
 def cell6(request):
@@ -33,8 +35,9 @@ def cell5(request):
 
 lastJobName = 'Data Scientist'
 last_price_importance, last_work_importance, last_danger_importance, last_air_importance, last_green_importance = 2.5, 2.5, 2.5, 2.5, 2.5
+lastMinRent, lastMaxRent = 800, 1500
 def cell2(request):
-    global lastJobName
+    global lastJobName, lastMinRent, lastMaxRent
     global last_price_importance, last_work_importance, last_danger_importance, last_air_importance, last_green_importance
     input_jobName = request.GET.get('jobName', 'Data Scientist')
     price_importance = request.GET.get('price_importance', 2.5)
@@ -42,16 +45,21 @@ def cell2(request):
     danger_importance = request.GET.get('danger_importance', 2.5)
     air_importance = request.GET.get('air_importance', 2.5)
     green_importance = request.GET.get('green_importance', 2.5)
-
-    if (input_jobName!=lastJobName) or ([last_price_importance, last_work_importance, last_danger_importance, last_air_importance, last_green_importance]!=[price_importance, work_importance, danger_importance, air_importance, green_importance]):
+    minRent = request.GET.get('minRent', 800)
+    maxRent = request.GET.get('maxRent', 1500)
+    if (minRent!=lastMinRent) or (maxRent!=lastMaxRent) or (input_jobName!=lastJobName) or ([last_price_importance, last_work_importance, last_danger_importance, last_air_importance, last_green_importance]!=[price_importance, work_importance, danger_importance, air_importance, green_importance]):
         #price_importance, work_importance, danger_importance, air_importance, green_importance = 5,5,5,5,5
-        score.score(input_jobName,price_importance, work_importance, danger_importance, air_importance, green_importance)
+        score.score(input_jobName,price_importance, work_importance, danger_importance, air_importance, green_importance, minRent = minRent, maxRent = maxRent)
         updateMap.updateMap()
         lastJobName = input_jobName
+        lastMinRent = minRent
+        lastMaxRent = maxRent
         last_price_importance, last_work_importance, last_danger_importance, last_air_importance, last_green_importance = price_importance, work_importance, danger_importance, air_importance, green_importance
     #getCompaniesDataframe(googleCreds.GOOGLE_API_KEY, jobName=job_name, dfPath="static/miluogo/1_dfCompanies.csv")
     #miluogo.updateMap(job_name, price_importance, work_importance, danger_importance, air_importance, green_importance)
-    return render(request, 'miluogo.html',{'given_jobName':input_jobName, 'given_price_importance':price_importance, 'given_work_importance':work_importance, 'given_danger_importance':danger_importance,'given_air_importance':air_importance,'given_green_importance':green_importance})
+    return render(request, 'miluogo.html',{'given_jobName':input_jobName, 'given_price_importance':price_importance,
+    'given_work_importance':work_importance, 'given_danger_importance':danger_importance,
+    'given_air_importance':air_importance,'given_green_importance':green_importance, 'given_minRent':minRent, 'given_maxRent':maxRent})
 
 
 

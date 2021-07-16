@@ -54,7 +54,7 @@ def getZone(loc, js='static/miluogo/data/zonedecentramento.geojson'):
             return feature["properties"]['ZONADEC']
 
 #==========================================================================
-def score(jobName, price_importance, work_importance, danger_importance, air_importance, green_importance):
+def score(jobName, price_importance, work_importance, danger_importance, air_importance, green_importance, minRent = 800, maxRent = 1500):
     price_importance, work_importance, danger_importance, air_importance, green_importance = float(price_importance), float(work_importance), float(danger_importance), float(air_importance), float(green_importance)
     dfCompanies = dataGeneration.getCompaniesDataframe(jobName=jobName,
                                         maxPages = 3,
@@ -62,7 +62,7 @@ def score(jobName, price_importance, work_importance, danger_importance, air_imp
     print(dfCompanies)
     dfGreen = dataGeneration.getGreenZonesDataframe()
     dfAirStations = dataGeneration.getAirQualityDataframe()
-    dfAccommodations = dataGeneration.getAccommodationDF(maxPages=3)
+    dfAccommodations = dataGeneration.getAccommodationDF(maxPages=3, minPrice = minRent, maxPrice = maxRent)
     # ### 2. Mean and median locations
     # Here I calculate the mean and median location of the companies' location points which should be optimal for living.
 

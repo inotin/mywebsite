@@ -78,20 +78,12 @@
 </details>
 
 
-
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](http://notin.it)
-
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`github_username`, `repo_name`, `twitter_handle`, `email`, `project_title`, `project_description`
-
 ### To-do
 - [x] Move gunicorn to venv
 - [x] PGN project: remove input name sensitivity to case
 - [x] Add no caching to iframes (to have them always fresh after reloading)
+- [x] Add range of price functionality to Miluogo
+- [ ] Add progress bars with status output
 - [ ] Deploy using Docker
 
 ### Built With

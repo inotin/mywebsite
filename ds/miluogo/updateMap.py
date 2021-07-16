@@ -416,8 +416,8 @@ def updateMap():
     # tooltip = 'Click me!'
 
     for i,row in dfAccommodationsExpanded.iterrows():
-        link = "<a href='https://www.immobiliare.it/annunci/"+str(row['id'].split("_")[2])+"/"+" target='_blank'" + ">Link</a>"
-        st = f"{row.type},{row.id},EUR {row.price}"
+        link = "<a href='https://www.immobiliare.it/annunci/"+str(row['id'])+"/"+" target='_blank'" + ">Link</a>"
+        st = f"{row.type},{row.address},EUR {row.price}"
         folium.Marker([row['coords'][0], row['coords'][1]],
                     popup = st+" "+ link + " Total score:" + str(row.score),
                     tooltip=tooltip,

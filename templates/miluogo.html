@@ -14,17 +14,24 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
     $( function() {
+      var minRent=$( "#minRent" ).val();
+      var maxRent=$( "#maxRent" ).val();
       $( "#slider-range" ).slider({
         range: true,
         min: 0,
         max: 10000,
-        values: [ 800, 2000 ],
+        values: [ minRent, maxRent ],
         slide: function( event, ui ) {
-          $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+          $( "#amount" ).val( "€" + ui.values[ 0 ] + " - €" + ui.values[ 1 ] );
+          $( "#minRent" ).val($( "#slider-range" ).slider( "values", 0 ));
+          $( "#maxRent" ).val($( "#slider-range" ).slider( "values", 1 ));
         }
       });
-      $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-        " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+
+      $( "#amount" ).val( "€" + $( "#slider-range" ).slider( "values", 0 ) +
+        " - €" + $( "#slider-range" ).slider( "values", 1 ) );
+      $( "#minRent" ).val($( "#slider-range" ).slider( "values", 0 ));
+      $( "#maxRent" ).val($( "#slider-range" ).slider( "values", 1 ));
     } );
     </script>
 
@@ -78,6 +85,8 @@ Then each apartment is assigned this score which helps to choose the best one. <
           <p>
             <label for="amount">Price range <i>(beta)</i>:</label>
             <input type="text" id="amount" readonly style="border:0; color:#f6931f #2D70F4; font-weight:bold;">
+            <input type="text" id="minRent" name='minRent' value='{{given_minRent}}' readonly style="visibility: hidden; border:0; color:#f6931f #2D70F4; font-weight:bold; ">
+            <input type="text" id="maxRent" name='maxRent' value='{{given_maxRent}}' readonly style="visibility: hidden; border:0; color:#f6931f #2D70F4; font-weight:bold; ">
           </p>
 
           <div id="slider-range"></div>
