@@ -73,7 +73,10 @@ def cell3(request):
     global lastProductKeyWords
     input_productNames = request.GET.get('productNames', 'iPhone 11 Pro\niPhone 12 Pro\nGoogle Pixel 5\nGoogle Pixel 4A')
     input_productKeyWords = request.GET.get('productKeyWords', 'screen\ncamera\nstabilization\nbattery\nmaterials\nprice')
-
+    try:
+        duration = str(int(15*len(input_productNames.split('\n'))))
+    except:
+        duration = str(int(15*len(lastProductNames.split('\n'))))
     if (input_productNames!=lastProductNames) or (input_productKeyWords!=lastProductKeyWords):
         reviewlyzer.getSetScoresText(input_productNames, input_productKeyWords, maxNumber=5, plot = True, api_key=googleCreds.GOOGLE_API_KEY2, cx = googleCreds.GOOGLE_CX)
         lastProductNames= input_productNames
@@ -81,7 +84,9 @@ def cell3(request):
     plotHeight0 = str(int(30+50*len(pd.read_html('static/reviewlyzer/reviewlyzerPvalues.html')[0])))+'px'
     plotHeight1 = str(200*len(input_productNames.split('\n')))+'px'
     plotHeight2 = str(200*len(input_productKeyWords.split('\n')))+'px'
-    return render(request, 'reviewlyzer.html', {'given_productNames':input_productNames,'given_productKeyWords':input_productKeyWords,'plotHeight0':plotHeight0,'plotHeight1':plotHeight1,'plotHeight2':plotHeight2})
+
+    return render(request, 'reviewlyzer.html', {'given_productNames':input_productNames,'given_productKeyWords':input_productKeyWords,
+    'plotHeight0':plotHeight0,'plotHeight1':plotHeight1,'plotHeight2':plotHeight2, 'given_duration':duration})
 
 
 
@@ -93,10 +98,14 @@ def cell7(request):
     global lastCaptionTexts
     input_ImageUrls = request.GET.get('ImageUrls', 'https://www.spica.com/sites/5d683cbd24d35f11477fed0f/content_entry5d8b217524d35f11477ff600/5f8d3fbb24d35f5015ebe319/files/netherlands.jpeg\nhttps://timelapsenetwork.com/wp-content/uploads/TL-foto-Milano-City-5.jpg\nhttps://www.kanoa.it/wp-content/uploads/2019/04/Valletta-Malta.jpg')
     input_CaptionTexts = request.GET.get('CaptionTexts', 'This is a beautiful picture of Netherlands #amsterdam @user1 @user2\nThis is Milano. Vibrant and marvelous city #milano #italy @user3\nBoats in Valletta, Malta #malta #valletta')
+    try:
+        duration = str(int(15*len(lastImageUrls.split('\n'))))
+    except:
+        duration = str(int(15*len(input_ImageUrls.split('\n'))))
     if (input_ImageUrls!=lastImageUrls) or (input_CaptionTexts!=lastCaptionTexts):
         instaSeer.getScores(input_ImageUrls, input_CaptionTexts)
         lastImageUrls = input_ImageUrls
         lastCaptionTexts = input_CaptionTexts
     # plotHeight1 = str(200*len(input_productNames.split('\n')))+'px'
     # plotHeight2 = str(200*len(input_productKeyWords.split('\n')))+'px'
-    return render(request, 'instaSeer.html', {'given_ImageUrls':input_ImageUrls,'given_CaptionTexts':input_CaptionTexts})
+    return render(request, 'instaSeer.html', {'given_ImageUrls':input_ImageUrls,'given_CaptionTexts':input_CaptionTexts, 'given_duration':duration})

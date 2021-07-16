@@ -11,6 +11,15 @@
         obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
       }
     </script>
+    <script type="text/javascript">
+       function toggle_visibility(id) {
+           var e = document.getElementById(id);
+           if(e.style.visibility == 'hidden')
+              e.style.visibility = 'visible';
+           else
+              e.style.visibility = 'hidden';
+       }
+    </script>
   </head>
 
   <body>
@@ -54,9 +63,16 @@
             <textarea class="form-control" id="textArea" rows="3" name="CaptionTexts" onload='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{given_CaptionTexts}}</textarea>
           </div>
           <br>
-          <input type="submit" value="Compare posts">
+          <input type="submit" value="Compare posts" onclick="toggle_visibility('spinn');toggle_visibility('spinn2');">
         </form>
         <br>
+        <br>
+        <div id="spinn" class="spinner-border" role="status" style="visibility:hidden;">
+          <span class="sr-only"></span>
+        </div>
+        <div id="spinn2" style="visibility:hidden;">
+          <p>It will take about {{given_duration}} seconds. Be patient:)</p>
+        </div>
         </div>
       </div>
 

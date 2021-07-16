@@ -83,7 +83,7 @@ Then each apartment is assigned this score which helps to choose the best one. <
             <textarea class="form-control" id="textArea" rows="3" name="jobName" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{given_jobName}}</textarea>
           </div>
           <p>
-            <label for="amount">Price range <i>(beta)</i>:</label>
+            <label for="amount">Price range:</label>
             <input type="text" id="amount" readonly style="border:0; color:#f6931f #2D70F4; font-weight:bold;">
             <input type="text" id="minRent" name='minRent' value='{{given_minRent}}' readonly style="visibility: hidden; border:0; color:#f6931f #2D70F4; font-weight:bold; ">
             <input type="text" id="maxRent" name='maxRent' value='{{given_maxRent}}' readonly style="visibility: hidden; border:0; color:#f6931f #2D70F4; font-weight:bold; ">
@@ -107,11 +107,14 @@ Then each apartment is assigned this score which helps to choose the best one. <
           <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" name='work_importance' value='{{given_work_importance}}'>
           <br>
           <br>
-          <input type="submit" value="Find a great place!" onclick="toggle_visibility('spinn');">
+          <input type="submit" value="Find a great place!" onclick="toggle_visibility('spinn');toggle_visibility('spinn2');">
           <br>
           <br>
           <div id="spinn" class="spinner-border" role="status" style="visibility:hidden;">
             <span class="sr-only"></span>
+          </div>
+          <div id="spinn2" style="visibility:hidden;">
+            <p>It takes about 1-2 minutes. Be patient:)</p>
           </div>
         </form>
         </div>

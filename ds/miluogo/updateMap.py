@@ -417,9 +417,9 @@ def updateMap():
 
     for i,row in dfAccommodationsExpanded.iterrows():
         link = "<a href='https://www.immobiliare.it/annunci/"+str(row['id'])+"/"+" target='_blank'" + ">Link</a>"
-        st = f"{row.type},{row.address},EUR {row.price}"
+        st = f"<b>{row.type}</b><br>{row.address}<br>€{row.price}/month<br>{link}<br>"
         folium.Marker([row['coords'][0], row['coords'][1]],
-                    popup = st+" "+ link + " Total score:" + str(row.score),
+                    popup = st+"Total score:" + str(row.score),
                     tooltip=tooltip,
                     icon=folium.Icon(color=color_producer(row.score, max(dfAccommodationsExpanded["score"]),
                                                             inv = True))).add_to(feature_group7)

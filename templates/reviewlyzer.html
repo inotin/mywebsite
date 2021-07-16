@@ -61,11 +61,14 @@
             <textarea class="form-control" id="textArea" rows="3" name="productKeyWords" onload='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{given_productKeyWords}}</textarea>
           </div>
           <br>
-          <input type="submit" value="Reviewlyze!" onclick="toggle_visibility('spinn');">
+          <input type="submit" value="Reviewlyze!" onclick="toggle_visibility('spinn');toggle_visibility('spinn2');">
           <br>
           <br>
           <div id="spinn" class="spinner-border" role="status" style="visibility:hidden;">
             <span class="sr-only"></span>
+          </div>
+          <div id="spinn2" style="visibility:hidden;">
+            <p>It will take about {{given_duration}} seconds. Be patient:)</p>
           </div>
         </form>
         <br>

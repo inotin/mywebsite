@@ -62,7 +62,7 @@ def score(jobName, price_importance, work_importance, danger_importance, air_imp
     print(dfCompanies)
     dfGreen = dataGeneration.getGreenZonesDataframe()
     dfAirStations = dataGeneration.getAirQualityDataframe()
-    dfAccommodations = dataGeneration.getAccommodationDF(maxPages=3, minPrice = minRent, maxPrice = maxRent)
+    dfAccommodations = dataGeneration.getAccommodationDF(maxPages=5, minPrice = minRent, maxPrice = maxRent)
     # ### 2. Mean and median locations
     # Here I calculate the mean and median location of the companies' location points which should be optimal for living.
 

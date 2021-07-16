@@ -481,23 +481,23 @@ def getAccommodationDF(minPrice = 500, maxPrice = 5000, maxPages = 10, dfPath = 
         response = session.get(url)
 
         soup = BeautifulSoup(response.text, 'html.parser')
-    try:
-        for element in zip(soup.find_all('a', class_='Card_in-card__title__234gH'),soup.find_all('li', class_="Features_nd-list__item__3hWVx Features_in-feat__item__2-hIE Features_in-feat__item--main__3EFFl RealEstateListCard_in-realEstateListCard__features--main__2uSci")):
-            objID = element[0]['href'].split("/")[-2]
-            print(objID)
-            objType = element[0]['title'].split()[0]
-            print(objType)
-            objAddress = ' '.join(element[0]['title'].split()[1:])
-            print(objAddress)
-            objPrice = int(element[1].text.split("/")[0].split()[1].replace('.',''))
-            print(objPrice)
-            print('-'*25)
-            objects["id"].append(objID)
-            objects["type"].append(objType)
-            objects["address"].append(objAddress)
-            objects["price"].append(objPrice)
-    except:
-        pass
+        try:
+            for element in zip(soup.find_all('a', class_='Card_in-card__title__234gH'),soup.find_all('li', class_="Features_nd-list__item__3hWVx Features_in-feat__item__2-hIE Features_in-feat__item--main__3EFFl RealEstateListCard_in-realEstateListCard__features--main__2uSci")):
+                objID = element[0]['href'].split("/")[-2]
+                print(objID)
+                objType = element[0]['title'].split()[0]
+                print(objType)
+                objAddress = ' '.join(element[0]['title'].split()[1:])
+                print(objAddress)
+                objPrice = int(element[1].text.split("/")[0].split()[1].replace('.',''))
+                print(objPrice)
+                print('-'*25)
+                objects["id"].append(objID)
+                objects["type"].append(objType)
+                objects["address"].append(objAddress)
+                objects["price"].append(objPrice)
+        except:
+            pass
 
     print(f"All successful. {len(objects['id'])} objects has been added")
 
