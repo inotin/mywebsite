@@ -43,7 +43,7 @@ def totalScore(x, air = 5, safety = 5, job = 5, green = 5, price = 5):
     #"price", "contamination", "distanceToDangerZone", "distanceToMedianJobLocation","GreenConc"
     return -x[0]*air + x[1]*safety - x[2]*job + x[3]*green - x[4]*price
 
-def getZone(loc, js='static/data/zonedecentramento.geojson'):
+def getZone(loc, js='static/miluogo/data/zonedecentramento.geojson'):
     point = Point(min(loc), max(loc))
     with open(js) as f:
         js = json.load(f)
@@ -107,4 +107,4 @@ def score(jobName, price_importance, work_importance, danger_importance, air_imp
 
 
     dfAccommodations["score"] = air_importance*dfAccommodations['contamination'] + danger_importance*dfAccommodations['distanceToDangerZone']+work_importance*dfAccommodations['distanceToMedianJobLocation']+green_importance*dfAccommodations['GreenConc']+price_importance*dfAccommodations['priceScaled']
-    dfAccommodations.to_pickle('static/data/'+'dfAccommodationsExpanded.pkl')
+    dfAccommodations.to_pickle('static/miluogo/data/'+'dfAccommodationsExpanded.pkl')

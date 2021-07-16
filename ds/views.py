@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . import pgn, reviewAnalyzer, charwords, googleCreds, instaSeer
+from . import pgn, charwords, googleCreds, instaSeer
 from .miluogo import score, models, updateMap
 from .reviewlyzer import reviewlyzer, charwords
 import pandas as pd

@@ -21,7 +21,7 @@ def getCompaniesDataframe(googleAPIKey,
                           locationName = "Milano Lombardia",
                           resource = "https://it.indeed.com/",
                           maxPages = 1,
-                          dfPath = "static/data/dfCompanies.pkl",
+                          dfPath = "static/miluogo/data/dfCompanies.pkl",
                           savePickle = True,
                           dropNAs = True):
 
@@ -214,7 +214,7 @@ def getCompaniesDataframe(googleAPIKey,
 # Green Zones
 # The next step is to analyze how green each zone of Milan is. I used data on green zones in order to obtain Vegetation Concentration (area of green zones relative to total area).
 def getGreenZonesDataframe(resource = "https://dati.comune.milano.it/dataset/da6bc86d-c27f-4256-84eb-86c35dad7d0e/resource/bd55cd57-4dd7-4d72-b182-de4f4b7de8c6/download/ds339_territorioambiente_aree-verdi-zona-superficie_2014.csv",
-                          dfPath = "static/data/",
+                          dfPath = "static/miluogo/data/",
                           savePickle = True):
 
     """
@@ -234,7 +234,7 @@ def getGreenZonesDataframe(resource = "https://dati.comune.milano.it/dataset/da6
                             default: "https://dati.comune.milano.it/dataset/da6bc86d-c27f-4256-84eb-86c35dad7d0e/resource/bd55cd57-4dd7-4d72-b182-de4f4b7de8c6/download/ds339_territorioambiente_aree-verdi-zona-superficie_2014.csv"
 
         dfPath      (str):  path to save dataframes as pickle files,
-                            default: "static/data/"
+                            default: "static/miluogo/data/"
 
         savePickle  (bool): True, if pickle files should be saved to dfPath,
                             default: True
@@ -300,7 +300,7 @@ def getGreenZonesDataframe(resource = "https://dati.comune.milano.it/dataset/da6
 
 def getAirQualityDataframe(resource = ['https://dati.comune.milano.it/dataset/3e752fec-06fd-421b-ae9b-4d5d7a177640/resource/698a58e6-f276-44e1-92b1-3d2b81a4ad47/download/qaria_datoariagiornostazione_2020-01-08.csv',
                                       'https://dati.comune.milano.it/dataset/ccf8b61d-728f-46e7-bee9-e685c7b6cd35/resource/88c1e729-420e-433f-9397-875b54aa471d/download/qaria_datoariagiornostazione_2021-01-01.csv'],
-                          dfPath = "static/data/",
+                          dfPath = "static/miluogo/data/",
                           savePickle = True,
                           plot = False):
 
@@ -321,7 +321,7 @@ def getAirQualityDataframe(resource = ['https://dati.comune.milano.it/dataset/3e
                             default: "https://dati.comune.milano.it/dataset/da6bc86d-c27f-4256-84eb-86c35dad7d0e/resource/bd55cd57-4dd7-4d72-b182-de4f4b7de8c6/download/ds339_territorioambiente_aree-verdi-zona-superficie_2014.csv"
 
         dfPath      (str):  path to save dataframes as pickle files,
-                            default: "static/data/"
+                            default: "static/miluogo/data/"
 
         savePickle  (bool): True, if pickle files should be saved to dfPath,
                             default: True
@@ -434,7 +434,7 @@ def getLoc(address, annot = False, api_key = googleCreds.GOOGLE_API_KEY):
             print(address + " was skipped. Probably was not found\n")
         return np.nan
 
-def getAccommodationDF(minPrice = 500, maxPrice = 5000, maxPages = 10, dfPath = "static/data/", savePickle = True):
+def getAccommodationDF(minPrice = 500, maxPrice = 5000, maxPages = 10, dfPath = "static/miluogo/data/", savePickle = True):
 
     """
     The function returns a dataframe with following features:
@@ -458,7 +458,7 @@ def getAccommodationDF(minPrice = 500, maxPrice = 5000, maxPages = 10, dfPath = 
                 default: 10
 
     dfPath      (str):  path to save dataframes as pickle files,
-                default: "static/data/"
+                default: "static/miluogo/data/"
 
     savePickle  (bool): True, if pickle files should be saved to dfPath,
           default: True
@@ -523,7 +523,7 @@ def getAccommodationDF(minPrice = 500, maxPrice = 5000, maxPages = 10, dfPath = 
 # # ### Defining Zone for each object
 # import json
 # from shapely.geometry import shape, Point
-# with open('static/data/zonedecentramento.geojson') as f:
+# with open('static/miluogo/data/zonedecentramento.geojson') as f:
 #     js = json.load(f)
 #
 #

@@ -201,7 +201,7 @@ def updateMap():
     #def updateMap(job_name, price_importance, work_importance, danger_importance, air_importance, green_importance, num):
     """
     """
-    dfCompanies = pd.read_pickle('static/data/dfCompanies.pkl')
+    dfCompanies = pd.read_pickle('static/miluogo/data/dfCompanies.pkl')
     feature_group1 = folium.FeatureGroup(name='Companies', show = False)
 
     #I need this location to center the future map
@@ -256,7 +256,7 @@ def updateMap():
     feature_groups.append(feature_group2)
 
 
-    milanodistricts = "static/data/zonedecentramento.geojson"
+    milanodistricts = "static/miluogo/data/zonedecentramento.geojson"
     #Source: https://dati.comune.milano.it/dataset/ds153-infogeo-zone-localizzazione-2013
     #Last Access Date: 11/08/2020
 
@@ -269,14 +269,14 @@ def updateMap():
     feature_groups.append(feature_group3)
 
 
-    dfGreen = pd.read_pickle("static/data/dfGreen.pkl")
+    dfGreen = pd.read_pickle("static/miluogo/data/dfGreen.pkl")
     mapGreen = folium.Map(
         location=[location.latitude, location.longitude],
         zoom_start=12,
         tiles='cartodbpositron')
 
 
-    choropleth = folium.Choropleth('static/data/zonedecentramento.geojson',
+    choropleth = folium.Choropleth('static/miluogo/data/zonedecentramento.geojson',
                     name='Vegetation concentration',
                     data=dfGreen,
                     key_on="properties.ZONADEC",
@@ -294,9 +294,9 @@ def updateMap():
 
 
 
-    dfAir=pd.read_pickle("static/data/dfAirStations.pkl")
+    dfAir=pd.read_pickle("static/miluogo/data/dfAirStations.pkl")
     import json
-    with open('static/data/qaria_stazione.geojson') as data_file:
+    with open('static/miluogo/data/qaria_stazione.geojson') as data_file:
         data = json.load(data_file)
 
     def color_producer(value, mx, inv = False):
@@ -400,7 +400,7 @@ def updateMap():
     # minPrice = 1000
     # maxPrice = 2000
 
-    dfAccommodationsExpanded=pd.read_pickle("static/data/dfAccommodationsExpanded.pkl")
+    dfAccommodationsExpanded=pd.read_pickle("static/miluogo/data/dfAccommodationsExpanded.pkl")
     # dfObjects = dfObjects[(dfObjects["price"]>=minPrice) & (dfObjects["price"]<=maxPrice)]
     # dfObjects = dfObjects[dfObjects["type"] == "Bilocale"]
 
