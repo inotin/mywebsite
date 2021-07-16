@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Ilia Notin Projects | Reviewlizer</title>
+    <title>Ilia Notin Projects | Reviewlyzer</title>
     {%load static%}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="icon" type="image/png" href="{%static 'favicon.png'%}"/>
@@ -26,7 +26,7 @@
 
   <body>
     <a href="{%url 'home'%}"><button type="button" style="margin-top:20px; margin-left:12px; color:grey;" class="btn btn-light">← Back home</button></a>
-    <h1 style="margin-top:30px; margin-left: 10px;">Reviewlizer<a href="https://github.com/inotin/reviewAnalyzer"><img style="height:28px" src="{%static 'GitHub-Mark-120px-plus.png'%}" alt=""></a></h1>
+    <h1 style="margin-top:30px; margin-left: 10px;">Reviewlyzer<a href="https://github.com/inotin/reviewAnalyzer"><img style="height:28px" src="{%static 'GitHub-Mark-120px-plus.png'%}" alt=""></a></h1>
     <div class="container" style="max-width: 100%;">
 
       <div class="row" style="margin-bottom:30px;">
@@ -61,7 +61,7 @@
             <textarea class="form-control" id="textArea" rows="3" name="productKeyWords" onload='this.style.height = "";this.style.height = this.scrollHeight + "px"'>{{given_productKeyWords}}</textarea>
           </div>
           <br>
-          <input type="submit" value="Reviewlize!" onclick="toggle_visibility('spinn');">
+          <input type="submit" value="Reviewlyze!" onclick="toggle_visibility('spinn');">
           <br>
           <br>
           <div id="spinn" class="spinner-border" role="status" style="visibility:hidden;">
@@ -80,7 +80,7 @@
         </div>
         <div class="col-lg-8">
 
-          <iframe src="{%static 'reviewlizer/reviewlizerDf.html'%}" title="table" frameborder="0" scrolling="no" onload="resizeIframe(this)" style="width:100%"></iframe>
+          <iframe src="{%static 'reviewlyzer/reviewlyzerDf.html'%}" title="table" frameborder="0" scrolling="no" onload="resizeIframe(this)" style="width:100%"></iframe>
 
         </div>
       </div>
@@ -96,8 +96,8 @@
         <div class="col-lg-8">
           <br>
           <br>
-          <iframe style="width:100%; height: {{plotHeight0}}" src="{%static 'reviewlizer/reviewlizerPvalues.html'%}" title="plots" ></iframe>
-          <iframe style="width:100%; height:1000px" src="{%static 'reviewlizer/reviewlizerBoxPlots.html'%}" title="plots" ></iframe>
+          <iframe style="width:100%; height: {{plotHeight0}}" src="{%static 'reviewlyzer/reviewlyzerPvalues.html'%}" title="plots" ></iframe>
+          <iframe style="width:100%; height:1000px" src="{%static 'reviewlyzer/reviewlyzerBoxPlots.html'%}" title="plots" ></iframe>
         </div>
       </div>
 
@@ -108,8 +108,8 @@
           Histograms, barplots
         </div>
         <div class="col-lg-8">
-          <iframe style="width:100%; height:{{plotHeight1}}" src="{%static 'reviewlizer/reviewlizerHistograms.html'%}" title="plots" ></iframe>
-          <iframe style="width: 100%; height: {{plotHeight2}}" src="{%static 'reviewlizer/reviewlizerResult.html'%}" title="plots" ></iframe>
+          <iframe style="width:100%; height:{{plotHeight1}}" src="{%static 'reviewlyzer/reviewlyzerHistograms.html'%}" title="plots" ></iframe>
+          <iframe style="width: 100%; height: {{plotHeight2}}" src="{%static 'reviewlyzer/reviewlyzerResult.html'%}" title="plots" ></iframe>
         </div>
       </div>
 

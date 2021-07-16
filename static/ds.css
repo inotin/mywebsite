@@ -137,7 +137,8 @@
 
 #cell9{
   background: url("images/portrait.png") 100% 100% no-repeat;
-  background-size: cover;
+  background-size: 110% auto;
+  background-position: center;
 }
 
 /* footer{

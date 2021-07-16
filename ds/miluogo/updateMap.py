@@ -227,7 +227,7 @@ def updateMap():
     feature_groups.append(feature_group1)
 
     print(dfCompanies)
-    
+
     meanLat = dfCompanies["lt"].mean()
     meanLon = dfCompanies["lg"].mean()
 
@@ -521,3 +521,10 @@ def updateMap():
         f.add_to(mapGreen)
     folium.LayerControl(collapsed = False).add_to(mapGreen)
     mapGreen.save(f"static/updatedMap/map.html")
+    with open('static/updatedMap/map.html', 'r') as file:
+        data = file.read()
+    data = data.replace('<head>', '<head> <meta http-Equiv="Cache-Control" Content="no-cache" /> <meta http-Equiv="Pragma" Content="no-cache" /> <meta http-Equiv="Expires" Content="0" />')
+    # with open("InstaSeerDf2.html", "w") as file:
+    #      file.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl\" crossorigin=\"anonymous\">")
+    with open("static/updatedMap/map.html", "w") as file:
+        file.write(data)
