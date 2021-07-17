@@ -462,7 +462,7 @@ pathForOutput = "static/reviewlyzer/"):
     productKeyWords = productKeyWords.replace('\r','')
 
     productNames = productNames.split('\n')
-    productKeyWords = productKeyWords.split('\n')
+    productKeyWords = productKeyWords.lower().split('\n')
     print(productNames)
     print(productKeyWords)
     # input()
