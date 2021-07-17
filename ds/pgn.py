@@ -70,7 +70,7 @@ def getEcoDescription(eco, ecoUrl = 'https://www.chessgames.com/chessecohelp.htm
     Output (str): string with a description or 'Description was not found' in case of abscence
     """
 
-    pathToEco = './downloads/eco.pkl'
+    pathToEco = './pgn/downloads/eco.pkl'
     if os.path.isfile(pathToEco):
         ecoDf = pd.read_pickle(pathToEco)
     else:
@@ -94,12 +94,12 @@ def playerExists(playerName, url="https://www.pgnmentor.com/files.html"):
             lst.append(el.lower())
     return playerName.lower() in set(lst)
 
-def getGraph(lastname, top = 30, directory_to_extract_to = 'downloads'):
+def getGraph(lastname, top = 30, directory_to_extract_to = 'pgn/downloads'):
     """
     """
     if len(lastname)>1:
         lastname=lastname[0].upper()+lastname[1:].lower()
-        
+
     if playerExists(lastname):
         #print('Downloading ZIP with PGNs of '+lastname)
         zipFileUrl = "https://www.pgnmentor.com/players/"+lastname+".zip"
@@ -111,7 +111,7 @@ def getGraph(lastname, top = 30, directory_to_extract_to = 'downloads'):
             shutil.rmtree(directory_to_extract_to)           # Removes all the subdirectories!
             os.makedirs(directory_to_extract_to)
 
-        path_to_zip_file = "downloads/"+lastname+'.zip'
+        path_to_zip_file = "pgn/downloads/"+lastname+'.zip'
 
         #print("Download successful")
         with open(os.fspath(PurePath(path_to_zip_file)), 'wb') as f:
@@ -129,7 +129,7 @@ def getGraph(lastname, top = 30, directory_to_extract_to = 'downloads'):
         df.columns=["ECO","Frequency"]
 
         dr = requests.get("http://www.neerpeltersk.be/palview4/p4sets/P3eco.txt")
-        path_to_Eco = 'static/eco.txt'
+        path_to_Eco = 'static/pgn/eco.txt'
 
         with open(path_to_Eco, 'wb') as f:
             f.write(dr.content)
@@ -155,7 +155,16 @@ def getGraph(lastname, top = 30, directory_to_extract_to = 'downloads'):
                  color='Frequency',
                  color_continuous_scale="rdbu_r"
                 )
-        fig.write_html("static/graph.html")
+        pathForGraph = "static/pgn/graph.html"
+        fig.write_html(pathForGraph)
+        with open(pathForGraph, 'r') as file:
+            data = file.read()
+        data = data.replace('</head>', '<meta http-Equiv="Cache-Control" Content="no-cache" /> <meta http-Equiv="Pragma" Content="no-cache" /> <meta http-Equiv="Expires" Content="0" /> </head>')
+        
+        # with open("InstaSeerDf2.html", "w") as file:
+        #      file.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl\" crossorigin=\"anonymous\">")
+        with open(pathForGraph, "w") as file:
+            file.write(data)
     else:
-        with open("static/graph.html", "w") as file:
+        with open("static/pgn/graph.html", "w") as file:
             file.write(f"<h4 style='margin-left:30px; margin-top:15px'> Player {lastname} was not found in <a target='_blank' href='https://www.pgnmentor.com/files.html'>the database</a></h4>")
