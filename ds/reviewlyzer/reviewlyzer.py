@@ -632,7 +632,7 @@ pathForOutput = "static/reviewlyzer/"):
     #df.to_html('static/reviewlyzerDf.html', index=False, border = 0)
     with open(pathForOutput+"reviewlyzerDf.html", 'r') as file:
         data = file.read()
-    data = data.replace('<table border="1" class="dataframe">', '<meta http-Equiv="Cache-Control" Content="no-cache" /> <meta http-Equiv="Pragma" Content="no-cache" /> <meta http-Equiv="Expires" Content="0" /> <table class="table">')
+    data = data.replace('<table border="1" class="dataframe">', '<head>\n<meta http-equiv="cache-control" content="max-age=0" />\n<meta http-equiv="cache-control" content="no-cache" />\n<meta http-equiv="expires" content="0" />\n<meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />\n<meta http-equiv="pragma" content="no-cache" />\n</head>\n<table class="table">')
     data = data.replace("style=\"text-align: right;\"", "style=\"text-align: left;\"")
     data = '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">\n' + data
     # with open("InstaSeerDf2.html", "w") as file:

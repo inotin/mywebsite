@@ -11,6 +11,9 @@
         obj.style.height = obj.contentWindow.document.documentElement.scrollHeight + 'px';
       }
     </script>
+    <script type="text/javascript">
+      document.getElementById('reload').src += '';
+    </script>
   </head>
   <script type="text/javascript">
      function toggle_visibility(id) {
@@ -83,7 +86,8 @@
         </div>
         <div class="col-lg-8">
 
-          <iframe src="{%static 'reviewlyzer/reviewlyzerDf.html'%}" title="table" frameborder="0" scrolling="no" onload="resizeIframe(this)" style="width:100%"></iframe>
+
+          <iframe id='reload' src="{%static 'reviewlyzer/reviewlyzerDf.html'%}" title="table" frameborder="0" scrolling="no" onload="resizeIframe(this)" style="width:100%"></iframe>
 
         </div>
       </div>
@@ -99,8 +103,8 @@
         <div class="col-lg-8">
           <br>
           <br>
-          <iframe style="width:100%; height: {{plotHeight0}}" src="{%static 'reviewlyzer/reviewlyzerPvalues.html'%}" title="plots" ></iframe>
-          <iframe style="width:100%; height:1000px" src="{%static 'reviewlyzer/reviewlyzerBoxPlots.html'%}" title="plots" ></iframe>
+          <iframe id='reload' style="width:100%; height: {{plotHeight0}}" src="{%static 'reviewlyzer/reviewlyzerPvalues.html'%}" title="plots" ></iframe>
+          <iframe id='reload' style="width:100%; height:1000px" src="{%static 'reviewlyzer/reviewlyzerBoxPlots.html'%}" title="plots" ></iframe>
         </div>
       </div>
 
@@ -111,8 +115,8 @@
           Histograms, barplots
         </div>
         <div class="col-lg-8">
-          <iframe style="width:100%; height:{{plotHeight1}}" src="{%static 'reviewlyzer/reviewlyzerHistograms.html'%}" title="plots" ></iframe>
-          <iframe style="width: 100%; height: {{plotHeight2}}" src="{%static 'reviewlyzer/reviewlyzerResult.html'%}" title="plots" ></iframe>
+          <iframe id='reload' style="width:100%; height:{{plotHeight1}}" src="{%static 'reviewlyzer/reviewlyzerHistograms.html'%}" title="plots" ></iframe>
+          <iframe id='reload' style="width: 100%; height: {{plotHeight2}}" src="{%static 'reviewlyzer/reviewlyzerResult.html'%}" title="plots" ></iframe>
         </div>
       </div>
 
