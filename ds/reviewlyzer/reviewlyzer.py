@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # coding: utf-8
 import os
+import time
+import random
 from youtube_transcript_api import YouTubeTranscriptApi
 from bs4 import BeautifulSoup
 from bs4.element import Comment
@@ -81,6 +83,7 @@ def getTextFromYoutubeCaptions(vidId):
     transcript_list = YouTubeTranscriptApi.list_transcripts(vidId)
     captions = ["NoText"]
     try:
+        time.sleep(1+(0.5*random.random())
         captions = YouTubeTranscriptApi.get_transcript(vidId, languages=['en'])
         print('english captions')
     except:
@@ -95,7 +98,7 @@ def getTextFromYoutubeCaptions(vidId):
     for element in captions:
         text+=element['text']+" "
     text = text.replace("\n"," ")
-    # print(text)
+    print(text)
     return text
     # except:
     #     print('Captions are not available')
