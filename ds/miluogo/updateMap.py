@@ -5,7 +5,7 @@ import folium
 from bs4 import BeautifulSoup
 import requests
 import numpy as np
-from . import googleCreds
+from .. import googleCreds
 import pandas as pd
 from folium.plugins import HeatMap
 import seaborn as sns

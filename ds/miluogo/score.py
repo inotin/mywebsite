@@ -1,5 +1,5 @@
 from . import dataGeneration
-from . import googleCreds
+from .. import googleCreds
 from . import models
 from math import radians, cos, sin, asin, sqrt
 import sys

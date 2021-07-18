@@ -6,7 +6,8 @@ from bs4 import BeautifulSoup
 from bs4.element import Comment
 import urllib.request
 import numpy as np
-from . import charwords, googleCreds
+from . import charwords
+from .. import googleCreds
 from tqdm import tqdm
 import nltk
 from nltk.corpus import wordnet

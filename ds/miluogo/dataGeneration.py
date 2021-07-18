@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 import requests
 
 import numpy as np
-from . import googleCreds
+from .. import googleCreds
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
