@@ -323,27 +323,28 @@ def getScores(dct, keyWords):
     dctForHist = {'product':[],'keyword':[], 'aP':[], 'aPV':[],'aPC':[]}
 
     for url in dct['urls']:
-        try:
-            if 'youtube' in url:
-                text = getTextFromYoutubeCaptions(url.split('=')[1])
-            else:
-                text = getTextFromUrl(url)
-
-            for keyWord in keyWords:
-                textList = getPieceByKeyWords(text,[keyWord])
-                aP, aPV, aPC = 0, 0, 0
-                for t in textList:
-                    aP+=assessPolarity(t)
-                    aPV+=assessPolarityVader(t)
-                    aPC+=assessPolarityCustom(t)
-                scoresDict[keyWord] = [aP,aPV,aPC]
-                dctForHist['product'].append(dct['product'])
-                dctForHist['keyword'].append(keyWord)
-                dctForHist['aP'].append(aP)
-                dctForHist['aPV'].append(aPV)
-                dctForHist['aPC'].append(aPC)
-        except:
-            pass
+        # try:
+        if 'youtube' in url:
+            text = getTextFromYoutubeCaptions(url.split('=')[1])
+        else:
+            text = getTextFromUrl(url)
+        print(text)
+        input()
+        for keyWord in keyWords:
+            textList = getPieceByKeyWords(text,[keyWord])
+            aP, aPV, aPC = 0, 0, 0
+            for t in textList:
+                aP+=assessPolarity(t)
+                aPV+=assessPolarityVader(t)
+                aPC+=assessPolarityCustom(t)
+            scoresDict[keyWord] = [aP,aPV,aPC]
+            dctForHist['product'].append(dct['product'])
+            dctForHist['keyword'].append(keyWord)
+            dctForHist['aP'].append(aP)
+            dctForHist['aPV'].append(aPV)
+            dctForHist['aPC'].append(aPC)
+        # except:
+        #     pass
     dfAllScores = pd.DataFrame(dctForHist)
     dfAllScores['mean']=np.mean(dfAllScores[['aP', 'aPV', 'aPC']],axis=1)
 
