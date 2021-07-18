@@ -79,27 +79,27 @@ def getTextFromYoutubeCaptions(vidId):
     Output:
     str: list of words from the captions
     """
+    # try:
+    transcript_list = YouTubeTranscriptApi.list_transcripts(vidId)
+    captions = ["NoText"]
     try:
-        transcript_list = YouTubeTranscriptApi.list_transcripts(vidId)
-        captions = ["NoText"]
-        try:
-            captions = YouTubeTranscriptApi.get_transcript(vidId, languages=['en'])
-        except:
-            #print("!Translating captions to English")
-            transcript = transcript_list.find_transcript(['ru','it'])
-            captions = transcript.translate('en').fetch()
-            #print(captions)
-            #input()
-        text = ""
-
-        for element in captions:
-            text+=element['text']+" "
-        text = text.replace("\n"," ")
-        # print(text)
-        return text
+        captions = YouTubeTranscriptApi.get_transcript(vidId, languages=['en'])
     except:
-        print('Captions are not available')
-        return 'Captions are not available'
+        #print("!Translating captions to English")
+        transcript = transcript_list.find_transcript(['ru','it'])
+        captions = transcript.translate('en').fetch()
+        #print(captions)
+        #input()
+    text = ""
+
+    for element in captions:
+        text+=element['text']+" "
+    text = text.replace("\n"," ")
+    # print(text)
+    return text
+    # except:
+    #     print('Captions are not available')
+    #     return 'Captions are not available'
 
 #Testing function
 # getTextFromYoutubeCaptions("eOW9jgCahnk")[:100]
