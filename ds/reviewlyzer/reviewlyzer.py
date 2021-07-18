@@ -83,7 +83,7 @@ def getTextFromYoutubeCaptions(vidId):
     transcript_list = YouTubeTranscriptApi.list_transcripts(vidId)
     captions = ["NoText"]
     try:
-        time.sleep(1+(0.5*random.random())
+        time.sleep(1+(0.5*random.random()))
         captions = YouTubeTranscriptApi.get_transcript(vidId, languages=['en'])
         print('english captions')
     except:
