@@ -105,13 +105,9 @@ def getTextFromYoutubeCaptions(vidId):
         text = text.replace("\n"," ")
         # print(text)
         return text
-    except Exception as e:
-        if isinstance(e, TooManyRequests):
-            print('Youtube is blocking the app:( Try again later')
-            return 'Youtube is blocking the app:( Try again later'
-        else:
-            print('Some other error')
-            return 'Some other error'
+    except:
+        print('Youtube is blocking the app:( Try again later')
+        return 'Youtube is blocking the app:( Try again later (or some other error)'
     #     print('Captions are not available')
     #     return 'Captions are not available'
 
