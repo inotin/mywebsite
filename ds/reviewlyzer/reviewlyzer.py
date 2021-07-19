@@ -79,28 +79,37 @@ def getTextFromYoutubeCaptions(vidId):
     Output:
     str: list of words from the captions
     """
-    # try:
+    try:
     transcript_list = YouTubeTranscriptApi.list_transcripts(vidId)
     captions = ["NoText"]
-    try:
-        time.sleep(1+(0.5*random.random()))
-        captions = YouTubeTranscriptApi.get_transcript(vidId, languages=['en'])
-        print('english captions')
-    except:
-        #print("!Translating captions to English")
-        transcript = transcript_list.find_transcript(['ru','it'])
-        captions = transcript.translate('en').fetch()
-        print('translated captions')
+        try:
+            time.sleep(1+(0.5*random.random()))
+            captions = YouTubeTranscriptApi.get_transcript(vidId, languages=['en'])
+            print('english captions')
+        except:
+            #print("!Translating captions to English")
+            transcript = transcript_list.find_transcript(['af', 'sq', 'am', 'ar', 'hy', 'az', 'eu', 'be', 'bn', 'my', 'bs', 'bg', 'ceb', 'zh-Hant', 'zh-Hans', \
+            'da', 'de', 'en', 'eo', 'et', 'fil', 'fi', 'fr', 'gl', 'gd', 'ka', 'el', 'gu', 'ht', 'ha', 'haw', 'iw', 'hi', 'ig', 'id', \
+            'ga', 'is', 'it', 'ja', 'jv', 'yi', 'kn', 'kk', 'ca', 'km', 'rw', 'ky', 'ko', 'co', 'hr', 'ku', 'lo', 'la', 'lv', 'lt', \
+            'lb', 'mg', 'ms', 'ml', 'mt', 'mi', 'mr', 'mk', 'hmn', 'mn', 'ne', 'nl', 'no', 'ny', 'or', 'ps', 'fa', 'pl', 'pt', 'pa', \
+            'ro', 'ru', 'sm', 'sv', 'sr', 'sn', 'sd', 'si', 'sk', 'sl', 'so', 'es', 'sw', 'st', 'su', 'tg', 'ta', 'tt', 'te', 'th', \
+            'cs', 'tr', 'tk', 'ug', 'uk', 'hu', 'ur', 'uz', 'vi', 'cy', 'fy', 'xh', 'yo', 'zu'])
+            captions = transcript.translate('en').fetch()
+            print('translated captions')
         #print(captions)
         #input()
-    text = ""
+        text = ""
 
-    for element in captions:
-        text+=element['text']+" "
-    text = text.replace("\n"," ")
-    print(text)
-    return text
-    # except:
+        for element in captions:
+            text+=element['text']+" "
+        text = text.replace("\n"," ")
+        print(text)
+        return text
+    except as e:
+        if isinstance(e, TooManyRequests):
+            return 'Youtube is blocking the app:( Try again later'
+        else:
+            return ''
     #     print('Captions are not available')
     #     return 'Captions are not available'
 
