@@ -80,8 +80,8 @@ def getTextFromYoutubeCaptions(vidId):
     str: list of words from the captions
     """
     try:
-    transcript_list = YouTubeTranscriptApi.list_transcripts(vidId)
-    captions = ["NoText"]
+        transcript_list = YouTubeTranscriptApi.list_transcripts(vidId)
+        captions = ["NoText"]
         try:
             time.sleep(1+(0.5*random.random()))
             captions = YouTubeTranscriptApi.get_transcript(vidId, languages=['en'])
@@ -105,11 +105,11 @@ def getTextFromYoutubeCaptions(vidId):
         text = text.replace("\n"," ")
         print(text)
         return text
-    except as e:
+    except Exception as e:
         if isinstance(e, TooManyRequests):
             return 'Youtube is blocking the app:( Try again later'
         else:
-            return ''
+            return 'Some error'
     #     print('Captions are not available')
     #     return 'Captions are not available'
 
