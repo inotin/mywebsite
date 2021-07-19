@@ -27,7 +27,7 @@ SECRET_KEY = dskey.dskey
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS+= ['www.notin.it','notin.it','18.184.126.106']
 
 # Application definition
 

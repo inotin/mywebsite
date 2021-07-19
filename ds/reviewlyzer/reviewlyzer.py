@@ -161,6 +161,7 @@ def getTextFromUrl(url):
 import nltk
 nltk.download('opinion_lexicon')
 nltk.download('vader_lexicon')
+nltk.download('stopwords')
 def assessPolarity(text):
     """
     Polarity assessment based on Liu and Hu opinion lexicon
