@@ -342,8 +342,8 @@ def getScores(dct, keyWords):
             text = getTextFromYoutubeCaptions(url.split('=')[1])
         else:
             text = getTextFromUrl(url)
-        print(text)
-        input()
+        #print(text)
+        #input()
         for keyWord in keyWords:
             textList = getPieceByKeyWords(text,[keyWord])
             aP, aPV, aPC = 0, 0, 0
@@ -486,6 +486,7 @@ pathForOutput = "static/reviewlyzer/"):
     # input()
     productDictSet = []
     for product in productNames:
+        print('Searching info on:',product)
         dct = defaultdict()
         dct['product']=product
         dct['urls']=getYouTubeLinksFromSearch(product, maxNumber)
