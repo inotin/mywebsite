@@ -15,6 +15,7 @@ from sklearn import preprocessing
 import json
 import csv
 from urllib.request import urlopen
+import re
 
 def getCompaniesDataframe(googleAPIKey,
                           jobName = "data scientist",
@@ -45,7 +46,7 @@ def getCompaniesDataframe(googleAPIKey,
                             default: "data scientist"
 
         locaionName (str):  location name,
-                            default: "Milano%2C+Lombardia"
+                            default: "Milano Lombardia"
 
         resource    (str):  URL of job source, by now available only default value,
                             default: "https://it.indeed.com/"
@@ -69,7 +70,8 @@ def getCompaniesDataframe(googleAPIKey,
     jobName = "+".join(jobName.split())
     city = locationName.split()[0]
     locationName = "%2C+".join(locationName.split())
-
+    print('Job name:', jobName)
+    print('Location name:', city)
     #To be extended if other resources are used
     if resource == "https://it.indeed.com/":
         if maxPages>1:
@@ -85,12 +87,13 @@ def getCompaniesDataframe(googleAPIKey,
                    "lt" : [],
                    "lg" : [],
                    "address" : []}
-    # input(urlList)
+    input(urlList)
     for url in urlList:
         session = requests.session()
         response = session.get(url)
-
+        input(response.status_code)
         soup = BeautifulSoup(response.text, 'html.parser')
+        print(soup)
         # # input(response.text)
         # for element in soup.find_all('span', class_='companyName'):
         #     #print(element)
@@ -105,7 +108,7 @@ def getCompaniesDataframe(googleAPIKey,
         #     companyInfo["companyName"].append(name)
         #     print('='*10)
         #     print('Company name:'+str(name))
-        import re
+
         for element in soup.find_all('a', id=re.compile('^job_')):
         #     print(element)
 
