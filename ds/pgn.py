@@ -72,7 +72,7 @@ def getEcoDescription(eco, ecoUrl = 'https://www.chessgames.com/chessecohelp.htm
     Output (str): string with a description or 'Description was not found' in case of abscence
     """
 
-    pathToEco = './pgn/downloads/eco.pkl'
+    pathToEco = './static/pgn/downloads/eco.pkl'
     if os.path.isfile(pathToEco):
         ecoDf = pd.read_pickle(pathToEco)
     else:
@@ -96,8 +96,9 @@ def playerExists(playerName, url="https://www.pgnmentor.com/files.html"):
             lst.append(el.lower())
     return playerName.lower() in set(lst)
 
-def getGraph(lastname, top = 30, directory_to_extract_to = 'pgn/downloads'):
+def getGraph(lastname, top = 30, directory_to_extract_to = 'static/pgn/downloads'):
     """
+    The function download a zip with PGN file, unzips it, parses to a dataframe, and creates html with graph with top-n openings
     """
     if len(lastname)>1:
         lastname=lastname[0].upper()+lastname[1:].lower()
@@ -157,7 +158,7 @@ def getGraph(lastname, top = 30, directory_to_extract_to = 'pgn/downloads'):
                  color='Frequency',
                  color_continuous_scale="rdbu_r"
                 )
-        pathForGraph = "static/pgn/pgnstats.html"
+        pathForGraph = "static/pgn/pgnGraph.html"
         fig.write_html(pathForGraph)
         with open(pathForGraph, 'r') as file:
             data = file.read()
@@ -168,5 +169,5 @@ def getGraph(lastname, top = 30, directory_to_extract_to = 'pgn/downloads'):
         with open(pathForGraph, "w") as file:
             file.write(data)
     else:
-        with open("static/pgn/pgnstats.html", "w") as file:
+        with open("static/pgn/pgnGraph.html", "w") as file:
             file.write(f"<h4 style='margin-left:30px; margin-top:15px'> Player {lastname} was not found in <a target='_blank' href='https://www.pgnmentor.com/files.html'>the database</a></h4>")

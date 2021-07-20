@@ -168,7 +168,7 @@ def getCompaniesDataframe(googleAPIKey,
         reqStatus=r['status']
         numberOfAttempt+=1
         print(reqStatus)
-        input()
+        #input()
         time.sleep(0.5)
         #print(f'Attempt {numberOfAttempt} for {company}')
         # try:
