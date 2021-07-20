@@ -114,7 +114,7 @@ def getGraph(lastname, top = 30, directory_to_extract_to = 'static/pgn/downloads
             shutil.rmtree(directory_to_extract_to)           # Removes all the subdirectories!
             os.makedirs(directory_to_extract_to)
 
-        path_to_zip_file = "pgn/downloads/"+lastname+'.zip'
+        path_to_zip_file = "static/pgn/downloads/"+lastname+'.zip'
 
         #print("Download successful")
         with open(os.fspath(PurePath(path_to_zip_file)), 'wb') as f:
