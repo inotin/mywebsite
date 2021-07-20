@@ -18,7 +18,9 @@ import re
 
 
 def convertPGNtoDF(path):
-    """"""
+    """
+    The function converts PGN file to dataframe
+    """
     try:
         with open(path, 'r') as file:
             data_from_pgn = file.read()
@@ -155,16 +157,16 @@ def getGraph(lastname, top = 30, directory_to_extract_to = 'pgn/downloads'):
                  color='Frequency',
                  color_continuous_scale="rdbu_r"
                 )
-        pathForGraph = "static/pgn/graph.html"
+        pathForGraph = "static/pgn/pgnstats.html"
         fig.write_html(pathForGraph)
         with open(pathForGraph, 'r') as file:
             data = file.read()
         data = data.replace('</head>', '<meta http-Equiv="Cache-Control" Content="no-cache" /> <meta http-Equiv="Pragma" Content="no-cache" /> <meta http-Equiv="Expires" Content="0" /> </head>')
-        
+
         # with open("InstaSeerDf2.html", "w") as file:
         #      file.write("<link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl\" crossorigin=\"anonymous\">")
         with open(pathForGraph, "w") as file:
             file.write(data)
     else:
-        with open("static/pgn/graph.html", "w") as file:
+        with open("static/pgn/pgnstats.html", "w") as file:
             file.write(f"<h4 style='margin-left:30px; margin-top:15px'> Player {lastname} was not found in <a target='_blank' href='https://www.pgnmentor.com/files.html'>the database</a></h4>")

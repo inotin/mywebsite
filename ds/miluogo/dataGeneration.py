@@ -54,7 +54,7 @@ def getCompaniesDataframe(googleAPIKey,
                             default: 1
 
         dfPath      (str):  path to save a dataframe as CSV file,
-                            default: "dfCompanies.csv"
+                            default: "static/miluogo/data/dfCompanies.pkl"
 
         saveCSV     (bool): True, if csv file should be saved to dfPath,
                             default: True
@@ -152,7 +152,7 @@ def getCompaniesDataframe(googleAPIKey,
     # In order to get companies' locations I need their address which I can get using Google Maps API.
     # I had to create an account for that purpose.
     # Credentials are stored in googleCreds.py for security reasons.
-    geolocator = GoogleV3(api_key = googleAPIKey)
+    geolocator = GoogleV3(api_key = googleCreds.GOOGLE_API_KEY)
 
     for company in companyInfo["companyName"]:
         print(company)
@@ -168,6 +168,7 @@ def getCompaniesDataframe(googleAPIKey,
         reqStatus=r['status']
         numberOfAttempt+=1
         print(reqStatus)
+        input()
         time.sleep(0.5)
         #print(f'Attempt {numberOfAttempt} for {company}')
         # try:
