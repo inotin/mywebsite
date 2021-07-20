@@ -1,0 +1,11 @@
+1626813603145	geckodriver	INFO	Listening on 127.0.0.1:57481
+1626813604151	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "--marionette" "-foreground" "-no-remote" "-profile" "/tmp/rust_mozprofilemGknEx"
+[GFX1-]: glxtest: eglChooseConfig returned an error
+[GFX1-]: glxtest: libEGL missing eglGetDisplayDriverName
+1626813604660	Marionette	INFO	Marionette enabled
+console.warn: SearchSettings: "get: No settings file exists, new profile?" (new NotFoundError("Could not open the file at /tmp/rust_mozprofilemGknEx/search.json.mozlz4", (void 0)))
+1626813606120	Marionette	INFO	Listening on port 43879
+1626813606186	Marionette	WARN	TLS certificate errors will be ignored for this session
+Exiting due to channel error.
+Exiting due to channel error.
+Exiting due to channel error.

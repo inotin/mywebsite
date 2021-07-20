@@ -4,7 +4,8 @@ from geopy.geocoders import Nominatim, GoogleV3, Bing
 import folium
 from bs4 import BeautifulSoup
 import requests
-
+import random
+import time
 import numpy as np
 from .. import googleCreds
 import pandas as pd
@@ -16,6 +17,7 @@ import json
 import csv
 from urllib.request import urlopen
 import re
+from selenium import webdriver
 
 def getCompaniesDataframe(googleAPIKey,
                           jobName = "data scientist",
@@ -88,12 +90,18 @@ def getCompaniesDataframe(googleAPIKey,
                    "lg" : [],
                    "address" : []}
     input(urlList)
+
+    driver = webdriver.Firefox()
     for url in urlList:
-        session = requests.session()
-        response = session.get(url)
-        input(response.status_code)
-        soup = BeautifulSoup(response.text, 'html.parser')
-        print(soup)
+        driver.get(url)
+        html = driver.page_source
+        soup = BeautifulSoup(html,'html.parser')
+
+        # session = requests.session()
+        # response = session.get(url)
+        # input(response.status_code)
+        # soup = BeautifulSoup(response.text, 'html.parser')
+        input(soup)
         # # input(response.text)
         # for element in soup.find_all('span', class_='companyName'):
         #     #print(element)
@@ -121,6 +129,7 @@ def getCompaniesDataframe(googleAPIKey,
             print(name)
             companyInfo["companyName"].append(name)
             print('='*10)
+        time.sleep(1+2*random.random())
         # for element in soup.find_all('div', class_="job_seen_beacon"):# id=re.compile('^job_')): #class_='tapItem fs-unmask result'):
         #     input(element)
         #     #print(element.find('a').get("href"))
