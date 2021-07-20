@@ -26,7 +26,7 @@ SECRET_KEY = dskey.dskey
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 ALLOWED_HOSTS+= ['www.notin.it','notin.it','18.184.126.106']
 
 # Application definition
@@ -60,6 +60,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
+                'django.template.context_processors.media',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -120,3 +121,6 @@ USE_TZ = True
 import os.path
 STATIC_URL = '/static/'
 STATICFILES_DIRS=(os.path.join('static'),)
+
+MEDIA_ROOT = (os.path.join('media'),)
+MEDIA_URL = '/media/'

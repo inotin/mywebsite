@@ -50,47 +50,21 @@
 </p>
 
 
-
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-      <ul>
-        <li><a href="#built-with">Built With</a></li>
-      </ul>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#installation">Installation</a></li>
-      </ul>
-    </li>
-    <li><a href="#usage">Usage</a></li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-    <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
-    <li><a href="#acknowledgements">Acknowledgements</a></li>
-  </ol>
-</details>
-
-
 ### To-do
 - [x] Move gunicorn to venv
 - [x] PGN project: remove input name sensitivity to case
 - [x] Add no caching to iframes (to have them always fresh after reloading)
-- [x] Add range of price functionality to Miluogo
+- [x] Add range of price functionality to <a href="notin.it/miluogo">Miluogo</a>
+- [ ] Possibility to upload images directly in <a href="notin.it/instaSeer">instSeer</a> using 'card layout' for each post with a possibility of adding new cards by clicking '+'
 - [ ] Add progress bars with status output
 - [ ] Deploy using Docker
 
 ### Built With
 
-* []()
-* []()
-* []()
+* [](Django)
+* [](Bootstrap)
+* [](nginx)
+* [](Gunicorn)
 
 
 

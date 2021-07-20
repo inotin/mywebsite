@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" href="{%static 'favicon.png'%}"/>
 
     <script type="text/javascript">
-      document.getElementById('reload').src += '';
+      document.getElementById('reload').contentWindow.location.reload();
     </script>
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -146,7 +146,7 @@ Then each apartment is assigned this score which helps to choose the best one. <
 
           <iframe id='reload' src="{%static 'updatedMap/map.html'%}" title="map" style="width: 100%; height: 800px;"></iframe>
           <script type="text/javascript">
-            document.getElementById('reload').src += '';
+            document.getElementById('reload').contentWindow.location.reload();
           </script>
         </div>
       </div>

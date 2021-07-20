@@ -205,6 +205,7 @@ def updateMap():
     feature_group1 = folium.FeatureGroup(name='Companies', show = False)
 
     #I need this location to center the future map
+    geolocator = GoogleV3(api_key = googleCreds.GOOGLE_API_KEY)
     location = geolocator.geocode("Milano Italy")
 
     # map1 = folium.Map(
