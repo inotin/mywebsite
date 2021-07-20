@@ -1,0 +1,67 @@
+server {
+server_name www.notin.it;
+location = /favicon.ico { access_log off; log_not_found off; }
+location /static/ {
+root /home/ubuntu/mywebsite ;
+}
+
+location / {
+proxy_connect_timeout 300s;
+proxy_read_timeout 300s;
+include proxy_params;
+proxy_pass http://unix:/home/ubuntu/gunicornsocks/ds.sock; }
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/notin.it/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/notin.it/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+server_name notin.it;
+location = /favicon.ico {access_log off; log_not_found off; }
+location /static/ {
+root /home/ubuntu/mywebsite ;
+}
+
+location / {
+include proxy_params;
+proxy_pass http://unix:/home/ubuntu/gunicornsocks/ds.sock;
+proxy_connect_timeout 300s;
+proxy_read_timeout 300s;
+}
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/notin.it/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/notin.it/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+
+server {
+    if ($host = notin.it) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+listen 80;
+server_name notin.it;
+    return 404; # managed by Certbot
+
+
+}server {
+    if ($host = www.notin.it) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+listen 80;
+server_name www.notin.it;
+    return 404; # managed by Certbot
+
+
+}
