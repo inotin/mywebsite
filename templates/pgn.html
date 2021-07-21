@@ -12,8 +12,9 @@
     <link rel="shortcut icon" href="{%static 'favicon.png'%}" type="image/x-icon">
     <script type="text/javascript">
       document.getElementById('reload').src+=''
-      document.getElementById('reload').contentWindow.location.reload();
+
     </script>
+
   </head>
   <body>
     <a href="{%url 'home'%}"><button type="button" style="margin-top:20px; margin-left:12px; color:grey;" class="btn btn-light">← Back home</button></a>
@@ -47,6 +48,7 @@
       <div class="row" id="row2">
           <p id='divTitle'>Graphics</p>
           <iframe id='reload' src="{%static 'pgn/pgnGraph.html'%}" width="100%" height="100%" id='graph'></iframe>
+
         </div>
       </div>
 
@@ -65,7 +67,6 @@
   </body>
   <script type="text/javascript">
     document.getElementById('reload').src+=''
-    document.getElementById('reload').contentWindow.location.reload();
   </script>
   <br>
   <footer style="position: fixed;font-size: 12px;bottom: 180px;left: -150px;color: grey;transform: rotate(-90deg);">

@@ -37,6 +37,7 @@ lastJobName = 'Data Scientist'
 last_price_importance, last_work_importance, last_danger_importance, last_air_importance, last_green_importance = 2.5, 2.5, 2.5, 2.5, 2.5
 lastMinRent, lastMaxRent = 800, 1500
 def cell2(request):
+    message=''
     global lastJobName, lastMinRent, lastMaxRent
     global last_price_importance, last_work_importance, last_danger_importance, last_air_importance, last_green_importance
     input_jobName = request.GET.get('jobName', 'Data Scientist')
@@ -50,11 +51,10 @@ def cell2(request):
     if (minRent!=lastMinRent) or (maxRent!=lastMaxRent) or (input_jobName!=lastJobName) or ([last_price_importance, last_work_importance, last_danger_importance, last_air_importance, last_green_importance]!=[price_importance, work_importance, danger_importance, air_importance, green_importance]):
         #price_importance, work_importance, danger_importance, air_importance, green_importance = 5,5,5,5,5
         score.score(input_jobName,price_importance, work_importance, danger_importance, air_importance, green_importance, minRent = minRent, maxRent = maxRent)
-        message=''
         try:
             updateMap.updateMap()
         except:
-            message='Indeed.com is blocking parsing in headless mode:( I will fix this soon but now you can try running the app from your PC'
+            message='Indeed.com is blocking parsing in headless mode:( I will fix this soon but now you can try running the app from your PC. Previous jobs are loaded'
         lastJobName = input_jobName
         lastMinRent = minRent
         lastMaxRent = maxRent

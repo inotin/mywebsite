@@ -18,6 +18,7 @@ import csv
 from urllib.request import urlopen
 import re
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 
 def getCompaniesDataframe(googleAPIKey,
                           jobName = "data scientist",
@@ -89,9 +90,11 @@ def getCompaniesDataframe(googleAPIKey,
                    "lt" : [],
                    "lg" : [],
                    "address" : []}
-    input(urlList)
-
-    driver = webdriver.Firefox()
+    #input(urlList)
+    options = Options()
+    options.headless = True
+    driver = webdriver.Firefox(options=options)
+    #driver = webdriver.Firefox()
     for url in urlList:
         driver.get(url)
         html = driver.page_source
@@ -101,7 +104,7 @@ def getCompaniesDataframe(googleAPIKey,
         # response = session.get(url)
         # input(response.status_code)
         # soup = BeautifulSoup(response.text, 'html.parser')
-        input(soup)
+        #input(soup)
         # # input(response.text)
         # for element in soup.find_all('span', class_='companyName'):
         #     #print(element)
@@ -217,8 +220,7 @@ def getCompaniesDataframe(googleAPIKey,
 
 
     dfCompanies.dropna(inplace = True)
-
-    if savePickle:
+    if len(dfCompanies)>0 and savePickle:
         dfCompanies.to_pickle(dfPath)
 
     return dfCompanies
