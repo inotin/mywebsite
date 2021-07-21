@@ -7,7 +7,7 @@ def home(request):
     return render(request, 'index.html')
 
 def aboutit(request):
-    return render(request, 'aboutit2.html')
+    return render(request, 'about_it.html')
 
 lastLastName = 'Adams'
 def cell1(request):
@@ -50,7 +50,11 @@ def cell2(request):
     if (minRent!=lastMinRent) or (maxRent!=lastMaxRent) or (input_jobName!=lastJobName) or ([last_price_importance, last_work_importance, last_danger_importance, last_air_importance, last_green_importance]!=[price_importance, work_importance, danger_importance, air_importance, green_importance]):
         #price_importance, work_importance, danger_importance, air_importance, green_importance = 5,5,5,5,5
         score.score(input_jobName,price_importance, work_importance, danger_importance, air_importance, green_importance, minRent = minRent, maxRent = maxRent)
-        updateMap.updateMap()
+        message=''
+        try:
+            updateMap.updateMap()
+        except:
+            message='Indeed.com is blocking parsing in headless mode:( I will fix this soon but now you can try running the app from your PC'
         lastJobName = input_jobName
         lastMinRent = minRent
         lastMaxRent = maxRent
@@ -59,7 +63,7 @@ def cell2(request):
     #miluogo.updateMap(job_name, price_importance, work_importance, danger_importance, air_importance, green_importance)
     return render(request, 'miluogo.html',{'given_jobName':input_jobName, 'given_price_importance':price_importance,
     'given_work_importance':work_importance, 'given_danger_importance':danger_importance,
-    'given_air_importance':air_importance,'given_green_importance':green_importance, 'given_minRent':minRent, 'given_maxRent':maxRent})
+    'given_air_importance':air_importance,'given_green_importance':green_importance, 'given_minRent':minRent, 'given_maxRent':maxRent, 'given_message':message})
 
 
 
